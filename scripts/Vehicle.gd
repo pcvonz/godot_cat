@@ -14,8 +14,7 @@ var MAX_FORCE
 var MAX_TURN_RATE
 var Steering = load("/scripts/steering.gd")
 
-func update(time_elapsed, target, object):
-	var SteeringForce = Steering.pursuit(target, object)
+func update(time_elapsed, SteeringForce):
 	#f=ma -> a=f/a
 	var acceleration = SteeringForce / MASS
 	velocity  += acceleration * time_elapsed
@@ -29,7 +28,6 @@ func update(time_elapsed, target, object):
 		heading = velocity.normalized()
 		#Need to calc the perp
 		
-	object.look_at(object.get_global_transform().origin + object.get_linear_velocity().normalized(), Vector3(0, 1, 0))
 
 
 func _init(mass, max_speed, max_force, max_turn_rate):
@@ -37,6 +35,6 @@ func _init(mass, max_speed, max_force, max_turn_rate):
 	MAX_SPEED = max_speed
 	MAX_FORCE = max_force
 	MAX_TURN_RATE = max_turn_rate
-	Steering = Steering.new(mass, max_speed, max_force, max_turn_rate)
+	#Steering = Steering.new(mass, max_speed, max_force, max_turn_rate)
 
 

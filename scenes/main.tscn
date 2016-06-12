@@ -56,7 +56,7 @@ geometry/baked_light_tex_id = 0
 [node name="Camera" type="Camera" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, -2.8213e-07, 1, 0, -1, -2.8213e-07, 13.0105, 44.0923, 10.3187 )
+transform/local = Transform( 1, 0, 0, 0, -2.8213e-07, 1, 0, -1, -2.8213e-07, 13.0105, 72.3247, 10.3187 )
 projection = 0
 fov = 60.0
 near = 0.1
@@ -94,7 +94,34 @@ params/attenuation = 1.0
 
 collision/layers = 1
 collision/mask = 1
+mass = 20.0
 axis_lock = 2
 script/script = ExtResource( 3 )
+max_speed = 20.0
+mass = 20.0
+max_force = 1.0
+max_turn_rate = 1.0
+wander_radius = 5.0
+wander_distance = 1.0
+wander_jitter = 4.0
+
+[node name="TestCube" type="TestCube" parent="cat"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.62364 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
 
 

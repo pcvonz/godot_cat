@@ -5,8 +5,6 @@ extends RigidBody
 # var a=2
 # var b="textvar"
 
-export(int, FLAGS, "fast", "normal", "slow") var decel = 1
-
 var max_speed
 var max_turn_rate
 var mass
@@ -28,7 +26,7 @@ func seek_pos(target, object):
 	return(desired_vec - object.get_linear_velocity())
 
 #takes in a with different speeds (slow, normal, fast)
-func arrive(target, deceleration, object):
+func arrive(target, decel, object):
 	var target_vec = target.get_global_transform().origin
 	var curr_vec = object.get_global_transform().origin
 	var vec_to = target_vec - curr_vec
@@ -54,7 +52,18 @@ func pursuit(evader, object):
 		var look_ahead_time = curr_pos.distance_to(evader_pos) / (max_speed + evader.MAX_SPEED)
 		return seek_pos(evader_pos + evader.get_linear_velocity() * look_ahead_time, object)
 
-#func wander(object):
+func wander(object, wander_object, wander_radius, wander_distance, wander_jitter):
+	randomize()
+	var wander_target = wander_object.get_transform().origin
+	wander_target += Vector3(rand_range(-1, 1) * wander_jitter, 0, rand_range(-1, 1) * wander_jitter)
+	wander_target = wander_target.normalized()
+	wander_target *= wander_radius
+	#reprojecting 
+	var target_local = wander_target + Vector3(0, 0, -wander_distance)
+	wander_object.set_transform(Transform(wander_object.get_transform().basis, target_local))
+	return seek(wander_object, object)
+	
+	
 	
 	
 
