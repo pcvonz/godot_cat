@@ -17,7 +17,7 @@ func _ready():
 	# Initialization here
 	target = get_node("../target")
 	#mass, max_speed, max_force, max_turn_rate
-	Vehicle = Vehicle.new(10, 7, 4, 1)
+	Vehicle = Vehicle.new(.01, 7, 4, 1)
 	set_fixed_process(true)
 	
 

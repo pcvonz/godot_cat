@@ -11,7 +11,7 @@ func _fixed_process(delta):
 	var vec = get_global_transform().origin
 	if Input.is_action_pressed("mouse_click"):
 		target = get_viewport().get_mouse_pos()
-	apply_impulse(get_global_transform().origin,seek(get_viewport().get_mouse_pos()))
+	apply_impulse(get_global_transform().origin, seek(get_viewport().get_mouse_pos()))
 
 func seek(target):
 	var desired_vec = Vector3(target.x/20, 0, target.y/20) - get_global_transform().origin

@@ -15,7 +15,7 @@ var MAX_TURN_RATE
 var Steering = load("/scripts/steering.gd")
 
 func update(time_elapsed, target, object):
-	var SteeringForce = Steering.seek(target, object)
+	var SteeringForce = Steering.pursuit(target, object)
 	#f=ma -> a=f/a
 	var acceleration = SteeringForce / MASS
 	velocity  += acceleration * time_elapsed
