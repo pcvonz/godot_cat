@@ -5,7 +5,7 @@ extends Node
 # var a=2
 # var b="textvar"
 
-var heading
+var heading = Vector3(0, 0, 0)
 var velocity = Vector3(0, 0, 0)
 var side
 var MASS

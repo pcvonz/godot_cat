@@ -45,12 +45,25 @@ func pursuit(evader, object):
 	#If the evader is in front of the seeker, then just seek
 	var evader_pos = evader.get_global_transform().origin
 	var curr_pos = object.get_global_transform().origin
+	var to_evader = evader_pos - curr_pos
 	var relative_heading = object.get_rotation().dot(evader.get_rotation())
-	if(curr_pos.distance_to(evader_pos) > 0 and relative_heading < -0.95):
+	if( to_evader.dot(object.Vehicle.heading) > 0 and relative_heading < -0.95):
 		return seek(evader, object)
 	else:
-		var look_ahead_time = curr_pos.distance_to(evader_pos) / (max_speed + evader.MAX_SPEED)
-		return seek_pos(evader_pos + evader.get_linear_velocity() * look_ahead_time, object)
+		var look_ahead_time = to_evader.length() / (max_speed + evader.get_linear_velocity().length())
+		var pursuit_targ = object.get_node("TestCube")
+		pursuit_targ.set_global_transform(Transform(pursuit_targ.get_transform().basis, (evader_pos + evader.get_linear_velocity() * look_ahead_time)))
+		return seek(pursuit_targ, object)
+
+func evade(pursuer, object):
+	#If the evader is in front of the seeker, then just seek
+	var pursuer_pos = pursuer.get_global_transform().origin
+	var curr_pos = object.get_global_transform().origin
+	var to_pursuer = pursuer_pos - curr_pos
+	var look_ahead_time = to_pursuer.length() / (max_speed + pursuer.get_linear_velocity().length())
+	var evade_targ = object.get_node("TestCube")
+	evade_targ.set_global_transform(Transform(evade_targ.get_transform().basis, (pursuer_pos + pursuer.get_linear_velocity() * look_ahead_time)))
+	return flee(evade_targ, object)
 
 func wander(object, wander_object, wander_radius, wander_distance, wander_jitter):
 	randomize()
