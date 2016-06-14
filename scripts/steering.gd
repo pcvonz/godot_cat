@@ -76,9 +76,23 @@ func wander(object, wander_object, wander_radius, wander_distance, wander_jitter
 	wander_object.set_transform(Transform(wander_object.get_transform().basis, target_local))
 	return seek(wander_object, object)
 	
-	
-	
-	
+func wall_avoid(object, RayLeft, RayCenter, RayRight):
+	var SteeringForce = Vector3(0, 0, 0)
+	if RayLeft.get_collider():
+		SteeringForce += calc_wall_vel(object, RayLeft)
+	if RayCenter.get_collider():
+		SteeringForce += calc_wall_vel(object, RayCenter)
+	if RayRight.get_collider():
+		SteeringForce += calc_wall_vel(object, RayRight)
+	return SteeringForce
+
+func calc_wall_vel(object, ray):
+	#The rays are actually a little closer, thus I add 1
+	var dist_to_col = (ray.get_collision_point() - object.get_global_transform().origin)
+	var overshoot = dist_to_col - ray.get_cast_to()
+	#Creating a steering force in the direction of the wall normal with the magnitude
+	#of the overshoot
+	return ray.get_collision_normal() * overshoot.length() 
 
 func _init(mass, max_speed, max_force, max_turn_rate):
 	self.mass = mass

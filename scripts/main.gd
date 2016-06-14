@@ -10,7 +10,7 @@ export var boids = 0
 
 func _ready():
 	for i in range(0, boids):
-		var temp = get_node("cat1").duplicate()
+		var temp = get_node("cat").duplicate()
 		add_child(temp)
 
 

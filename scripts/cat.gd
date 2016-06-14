@@ -13,11 +13,18 @@ export var max_turn_rate = 1.0
 export var wander_radius = 1.0
 export var wander_distance = 1.0
 export var wander_jitter = 1.0
-export(int, FLAGS, "Seek", "flee", "Pursuit", "Evade", "Wander") var flock_type
+export(int, FLAGS, "Seek", "flee", "Pursuit", "Evade", "Wander", "Wall Avoid", "Object Avoid") var flock_type
 export(NodePath) var target
 
 var Vehicle = load("scripts/Vehicle.gd")
 var Steering = load("/scripts/steering.gd")
+
+#Setting up rays
+var RayLeft
+var RayRight
+var RayCenter
+var RayObjectAvoid1
+var RayObjectAvoid2
 
 func _fixed_process(delta):
 	var SteeringForce = Vector3(0.0, 0, 0)
@@ -29,9 +36,17 @@ func _fixed_process(delta):
 		SteeringForce += Steering.pursuit(target, self)
 	if flock_type & 8:
 		SteeringForce += Steering.evade(target, self)
-#	#object, wander_object, wander_radius, wander_distance, wander_jitter
+	#object, wander_object, wander_radius, wander_distance, wander_jitter
 	if flock_type & 16:
 		SteeringForce += Steering.wander(self, get_node("TestCube"), wander_radius, wander_distance, wander_jitter)
+	if flock_type & 32:
+		if RayLeft.get_collider() or RayCenter.get_collider() or RayRight.get_collider():
+			#Sanitize the y vector
+			var temp = Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
+			SteeringForce += Vector3(temp.x, SteeringForce.y, temp.z)
+			#Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
+	if flock_type & 64:
+		pass
 	Vehicle.update(delta, SteeringForce)
 	set_linear_velocity(Vehicle.velocity)
 	
@@ -41,6 +56,15 @@ func _fixed_process(delta):
 func _enter_tree():
 	set_fixed_process(true)
 func _ready():
+	RayLeft = get_node("RayLeft")
+	RayRight = get_node("RayRight")
+	RayCenter = get_node("RayCenter")
+	RayObjectAvoid1 = get_node("RayObjectAvoid1")
+	RayObjectAvoid2 = get_node("RayObjectAvoid2")
+	RayLeft.add_exception(self)
+	RayCenter.add_exception(self)
+	RayRight.add_exception(self)
+	target = "../target"
 	target = get_node(target)
 	Vehicle = Vehicle.new(mass, max_speed, max_force, max_turn_rate)
 	Steering = Steering.new(mass, max_speed, max_force, max_turn_rate)

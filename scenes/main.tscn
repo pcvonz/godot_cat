@@ -1,16 +1,15 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/test_control.gd" type="Script" id=2]
-[ext_resource path="res://scenes/vehicle.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/cat.gd" type="Script" id=4]
-[ext_resource path="res://scenes/walls.scn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/walls.scn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/vehicle.tscn" type="PackedScene" id=4]
 
 [node name="Spatial" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
-boids = 0
+boids = 100
 
 [node name="target" type="RigidBody" parent="."]
 
@@ -60,7 +59,7 @@ geometry/baked_light_tex_id = 0
 [node name="Camera" type="Camera" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, -2.8213e-07, 1, 0, -1, -2.8213e-07, 0.738305, 72.3247, -0.638637 )
+transform/local = Transform( 1, 0, 0, 0, 0.560828, 0.827933, 0, -0.827933, 0.560828, 0.738305, 61.3085, 37.4907 )
 projection = 0
 fov = 60.0
 near = 0.1
@@ -103,82 +102,19 @@ operator = 0
 params/radius = 88.9631
 params/attenuation = 0.153893
 
-[node name="cat1" parent="." instance=ExtResource( 3 )]
+[node name="Spatial" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.832, 0, -10.5991 )
-mass = 0.5
-bounce = 0.2
-gravity_scale = 0.0
-axis_lock = 2
-script/script = ExtResource( 4 )
-decel = 1
+transform/local = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -11.6353 )
+
+[node name="cat" parent="." instance=ExtResource( 4 )]
+
+mass = 0.8
 max_speed = 4.0
-mass = 0.5
-max_force = 1.0
-max_turn_rate = 1.0
+mass = 0.8
 wander_radius = 5.0
-wander_distance = 3.0
-wander_jitter = 1.0
-flock_type = 4
-target = NodePath("../cat2")
-
-[node name="TestCube" type="TestCube" parent="cat1"]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.62364 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = 1
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-
-[node name="cat2" parent="." instance=ExtResource( 3 )]
-
-mass = 0.01
-bounce = 0.2
-gravity_scale = 0.0
-axis_lock = 2
-script/script = ExtResource( 4 )
-decel = 1
-max_speed = 5.0
-mass = 0.01
-max_force = 1.0
-max_turn_rate = 1.0
-wander_radius = 5.0
-wander_distance = 3.0
-wander_jitter = 6.0
-flock_type = 8
-target = NodePath("../cat1")
-
-[node name="TestCube" type="TestCube" parent="cat2"]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.62364 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = 1
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-
-[node name="Spatial" parent="." instance=ExtResource( 5 )]
+wander_distance = 2.0
+wander_jitter = 8.0
+flock_type = 48
+target = NodePath("../target")
 
 
-[editable path="Spatial"]
