@@ -109,7 +109,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.543885, 0, -1.05 )
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 layer_mask = 1
-type_mask = 1
+type_mask = 6
 
 [node name="RayObjectAvoid2" type="RayCast" parent="."]
 
@@ -118,14 +118,14 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.543885, 0, -1.05 )
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 layer_mask = 1
-type_mask = 1
+type_mask = 6
 
 [node name="TestCube" type="TestCube" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.98411 )
 layers = 1
-geometry/visible = false
+geometry/visible = true
 geometry/material_override = null
 geometry/cast_shadow = 1
 geometry/receive_shadows = true

@@ -27,7 +27,7 @@ var RayObjectAvoid1
 var RayObjectAvoid2
 
 func _fixed_process(delta):
-	var SteeringForce = Vector3(0.0, 0, 0)
+	var SteeringForce = Vector3(0, 0, 0)
 	if flock_type & 1:
 		SteeringForce += Steering.seek(target, self)
 	if flock_type & 2:
@@ -42,11 +42,16 @@ func _fixed_process(delta):
 	if flock_type & 32:
 		if RayLeft.get_collider() or RayCenter.get_collider() or RayRight.get_collider():
 			#Sanitize the y vector
-			var temp = Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
-			SteeringForce += Vector3(temp.x, SteeringForce.y, temp.z)
+			SteeringForce += Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 			#Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 	if flock_type & 64:
-		pass
+		if RayObjectAvoid1.get_collider() or RayObjectAvoid2.get_collider():
+			SteeringForce += Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
+			#Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
+	print(SteeringForce)
+	var temp = SteeringForce
+	SteeringForce = Vector3(temp.x, 0, temp.z)
+	
 	Vehicle.update(delta, SteeringForce)
 	set_linear_velocity(Vehicle.velocity)
 	
@@ -64,6 +69,8 @@ func _ready():
 	RayLeft.add_exception(self)
 	RayCenter.add_exception(self)
 	RayRight.add_exception(self)
+	RayObjectAvoid1.add_exception(self)
+	RayObjectAvoid2.add_exception(self)
 	target = "../target"
 	target = get_node(target)
 	Vehicle = Vehicle.new(mass, max_speed, max_force, max_turn_rate)

@@ -94,6 +94,22 @@ func calc_wall_vel(object, ray):
 	#of the overshoot
 	return ray.get_collision_normal() * overshoot.length() 
 
+func object_avoid(object, ray1, ray2):
+	print(ray1.get_collider().get_name())
+	print(ray2.get_collider().get_name())
+	if ray1.get_collider():
+		return calc_object_avoid(object, ray1)
+	elif ray2.get_collider():
+		return calc_object_avoid(object, ray2)
+		
+func calc_object_avoid(object, ray):
+	var SteeringForce = Vector3(0,0,0)
+	var multiplier = 1.0 + ray.get_cast_to().length() - ray.get_collision_point().length()
+	var col_obj = ray.get_collider()
+	var col_obj_local = col_obj.get_global_transform().origin - object.get_global_transform().origin
+	SteeringForce.x += (col_obj.get_scale().x/2 - col_obj_local.x)
+	return SteeringForce
+
 func _init(mass, max_speed, max_force, max_turn_rate):
 	self.mass = mass
 	self.max_speed = max_speed
