@@ -67,14 +67,14 @@ transform/local = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -11.6353 )
 
 [node name="cat" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.72278, -10.6475 )
-mass = 0.2
-max_speed = 4.0
-mass = 0.2
+transform/local = Transform( -0.493187, 0, -0.869923, 0, 1, 0, 0.869923, 0, -0.493187, 8.50893, -3.72278, -38.8269 )
+mass = 0.5
+max_speed = 10.0
+mass = 0.5
 wander_radius = 6.0
 wander_distance = 2.0
 wander_jitter = 4.0
-flock_type = 97
+flock_type = 112
 target = NodePath("../targ")
 
 [node name="RigidBody" type="RigidBody" parent="."]

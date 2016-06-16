@@ -76,39 +76,55 @@ func wander(object, wander_object, wander_radius, wander_distance, wander_jitter
 	wander_object.set_transform(Transform(wander_object.get_transform().basis, target_local))
 	return seek(wander_object, object)
 	
+#Function is not taking into account the closest wall. So, it gets stuck in corners right now.
 func wall_avoid(object, RayLeft, RayCenter, RayRight):
 	var SteeringForce = Vector3(0, 0, 0)
-	if RayLeft.get_collider():
-		SteeringForce = calc_wall_vel(object, RayLeft)
-	if RayCenter.get_collider():
-		SteeringForce = calc_wall_vel(object, RayCenter)
-	if RayRight.get_collider():
-		SteeringForce = calc_wall_vel(object, RayRight)
+	if RayLeft.is_colliding():
+		SteeringForce += calc_wall_vel(object, RayLeft)
+	if RayCenter.is_colliding():
+		SteeringForce += calc_wall_vel(object, RayCenter)
+	if RayRight.is_colliding():
+		SteeringForce += calc_wall_vel(object, RayRight)
 	return SteeringForce
 
 func calc_wall_vel(object, ray):
-	#The rays are actually a little closer, thus I add 1
 	var dist_to_col = (ray.get_collision_point() - object.get_global_transform().origin)
 	var overshoot = dist_to_col - ray.get_cast_to()
 	#Creating a steering force in the direction of the wall normal with the magnitude
 	#of the overshoot
-	return ray.get_collision_normal() * overshoot.length() 
+	return ray.get_collision_normal() * overshoot.length()
 
+#Need to add the braking force
 func object_avoid(object, area):
-	print(area.get_shape(0).get_extents())
 	if area.get_overlapping_bodies().size() > 0:
 		return calc_object_avoid(object, area)
 		
 func calc_object_avoid(object, area):
+	var col_obj = calc_closest_object(object, area)
 	var SteeringForce = Vector3(0,0,0)
-	print(area.get_overlapping_bodies()[0].get_name())
+
 	var multiplier = 1.0 + area.get_shape(0).get_extents().z - area.get_overlapping_bodies()[0].get_global_transform().origin.z
 	#Converting an object to the local coordinate is done implicitly. Experiment. 
-	var col_obj = area.get_overlapping_bodies()[0]
+	#Testing the local vs world coordinates
+#	var test_obj = object.get_node("TestCube")
+#	test_obj.set_transform(Transform(test_obj.get_transform().basis, col_obj.get_global_transform().origin - object.get_global_transform().origin + Vector3(0, 4,0)))
+#	test_obj.translate(Vector3(0, 4, 0))
 	var col_obj_local = col_obj.get_global_transform().origin - object.get_global_transform().origin
-	SteeringForce.x += (col_obj.get_scale().x/2 - col_obj_local.x)
+	SteeringForce.x += (col_obj.get_scale().x/2 - col_obj_local.x) *multiplier
+	
+	#now to calculate the braking force. 
+	var braking_weight = .2
+	SteeringForce.z += (col_obj.get_scale().z/2 - col_obj_local.x) * braking_weight
 	return SteeringForce
-
+	
+#calculates the closest object. Currently used in object avoidance to get the closest object to avoid
+func calc_closest_object(object, area):
+	var minimum = area.get_overlapping_bodies()[0]
+	for i in area.get_overlapping_bodies():
+		var local_pos = i.get_global_transform().origin - object.get_global_transform().origin
+		if (minimum.get_global_transform().origin - object.get_global_transform().origin > local_pos):
+			minimum = i
+	return minimum
 func _init(mass, max_speed, max_force, max_turn_rate):
 	self.mass = mass
 	self.max_speed = max_speed

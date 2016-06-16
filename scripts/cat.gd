@@ -40,8 +40,12 @@ func _fixed_process(delta):
 	if flock_type & 16:
 		SteeringForce += Steering.wander(self, get_node("TestCube"), wander_radius, wander_distance, wander_jitter)
 	if flock_type & 32:
-		if RayLeft.get_collider() or RayCenter.get_collider() or RayRight.get_collider():
+		if RayLeft.is_colliding() or RayCenter.is_colliding() or RayRight.is_colliding():
 			#Sanitize the y vector
+			print(RayLeft.get_collider())
+			print(RayCenter.get_collider())
+			print(RayRight.get_collider())
+			
 			SteeringForce += Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 			#Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 	if flock_type & 64:
