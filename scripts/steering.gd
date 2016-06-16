@@ -79,11 +79,11 @@ func wander(object, wander_object, wander_radius, wander_distance, wander_jitter
 func wall_avoid(object, RayLeft, RayCenter, RayRight):
 	var SteeringForce = Vector3(0, 0, 0)
 	if RayLeft.get_collider():
-		SteeringForce += calc_wall_vel(object, RayLeft)
+		SteeringForce = calc_wall_vel(object, RayLeft)
 	if RayCenter.get_collider():
-		SteeringForce += calc_wall_vel(object, RayCenter)
+		SteeringForce = calc_wall_vel(object, RayCenter)
 	if RayRight.get_collider():
-		SteeringForce += calc_wall_vel(object, RayRight)
+		SteeringForce = calc_wall_vel(object, RayRight)
 	return SteeringForce
 
 func calc_wall_vel(object, ray):
@@ -94,18 +94,17 @@ func calc_wall_vel(object, ray):
 	#of the overshoot
 	return ray.get_collision_normal() * overshoot.length() 
 
-func object_avoid(object, ray1, ray2):
-	print(ray1.get_collider().get_name())
-	print(ray2.get_collider().get_name())
-	if ray1.get_collider():
-		return calc_object_avoid(object, ray1)
-	elif ray2.get_collider():
-		return calc_object_avoid(object, ray2)
+func object_avoid(object, area):
+	print(area.get_shape(0).get_extents())
+	if area.get_overlapping_bodies().size() > 0:
+		return calc_object_avoid(object, area)
 		
-func calc_object_avoid(object, ray):
+func calc_object_avoid(object, area):
 	var SteeringForce = Vector3(0,0,0)
-	var multiplier = 1.0 + ray.get_cast_to().length() - ray.get_collision_point().length()
-	var col_obj = ray.get_collider()
+	print(area.get_overlapping_bodies()[0].get_name())
+	var multiplier = 1.0 + area.get_shape(0).get_extents().z - area.get_overlapping_bodies()[0].get_global_transform().origin.z
+	#Converting an object to the local coordinate is done implicitly. Experiment. 
+	var col_obj = area.get_overlapping_bodies()[0]
 	var col_obj_local = col_obj.get_global_transform().origin - object.get_global_transform().origin
 	SteeringForce.x += (col_obj.get_scale().x/2 - col_obj_local.x)
 	return SteeringForce

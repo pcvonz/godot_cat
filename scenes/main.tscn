@@ -68,13 +68,13 @@ transform/local = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -11.6353 )
 [node name="cat" parent="." instance=ExtResource( 3 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.72278, -10.6475 )
-mass = 0.1
+mass = 0.2
 max_speed = 4.0
-mass = 0.1
-wander_radius = 0.0
+mass = 0.2
+wander_radius = 6.0
 wander_distance = 2.0
-wander_jitter = 0.0
-flock_type = 65
+wander_jitter = 4.0
+flock_type = 97
 target = NodePath("../targ")
 
 [node name="RigidBody" type="RigidBody" parent="."]
@@ -136,6 +136,56 @@ _update_shape_index = 0
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -30.0286 )
 gravity_scale = 9.8
 
+[node name="target23" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6356, 0, -30.0286 )
+gravity_scale = 9.8
+
+[node name="target24" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6356, 0, -25.3265 )
+gravity_scale = 9.8
+
+[node name="target25" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9518, 0, -25.3265 )
+gravity_scale = 9.8
+
+[node name="target26" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9518, 0, -21.3524 )
+gravity_scale = 9.8
+
+[node name="target27" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4748, 0, -21.3524 )
+gravity_scale = 9.8
+
+[node name="target28" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4748, 0, -16.9995 )
+gravity_scale = 9.8
+
+[node name="target29" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4736, 0, -16.9995 )
+gravity_scale = 9.8
+
+[node name="target8" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -15.1859 )
+gravity_scale = 9.8
+
+[node name="target9" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7851, 0, -15.1859 )
+gravity_scale = 9.8
+
+[node name="target10" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7851, 0, 9.94973 )
+gravity_scale = 9.8
+
 [node name="target1" parent="." instance=ExtResource( 4 )]
 
 gravity_scale = 9.8
@@ -143,6 +193,66 @@ gravity_scale = 9.8
 [node name="target2" parent="." instance=ExtResource( 4 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.5398, -14.1452 )
+gravity_scale = 9.8
+
+[node name="target11" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.5398, 2.46424 )
+gravity_scale = 9.8
+
+[node name="target12" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3301, 17.5398, 2.46424 )
+gravity_scale = 9.8
+
+[node name="target13" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3301, 17.5398, -5.05584 )
+gravity_scale = 9.8
+
+[node name="target14" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51001, 14.6375, -5.05584 )
+gravity_scale = 9.8
+
+[node name="target15" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51001, 14.6375, 8.30439 )
+gravity_scale = 9.8
+
+[node name="target16" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2803, 14.6375, 8.30439 )
+gravity_scale = 9.8
+
+[node name="target17" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2803, 14.6375, 0.351199 )
+gravity_scale = 9.8
+
+[node name="target18" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9578, 9.5586, 0.351199 )
+gravity_scale = 9.8
+
+[node name="target19" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9578, 9.5586, -8.70935 )
+gravity_scale = 9.8
+
+[node name="target20" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3586, 9.5586, -8.70935 )
+gravity_scale = 9.8
+
+[node name="target21" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3586, 9.5586, -24.4907 )
+gravity_scale = 9.8
+
+[node name="target22" parent="." instance=ExtResource( 4 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9573, 9.5586, -24.4907 )
 gravity_scale = 9.8
 
 [node name="target3" parent="." instance=ExtResource( 4 )]

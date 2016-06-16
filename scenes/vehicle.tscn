@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/cat.gd" type="Script" id=1]
 [ext_resource path="res://meshes/cat.msh" type="Mesh" id=2]
@@ -6,6 +6,10 @@
 [sub_resource type="BoxShape" id=1]
 
 extents = Vector3( 0.543592, 0.806651, 1 )
+
+[sub_resource type="BoxShape" id=2]
+
+extents = Vector3( 0.923597, 0.541503, 3.52825 )
 
 [node name="cat" type="RigidBody"]
 
@@ -78,7 +82,7 @@ material/0 = null
 [node name="RayLeft" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.5, 0, 0 )
+transform/local = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 layer_mask = 1
@@ -87,7 +91,7 @@ type_mask = 1
 [node name="RayRight" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.5, 0, 0 )
+transform/local = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 layer_mask = 1
@@ -96,36 +100,17 @@ type_mask = 1
 [node name="RayCenter" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.05 )
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 layer_mask = 1
 type_mask = 1
-
-[node name="RayObjectAvoid1" type="RayCast" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.543885, 0, -1.05 )
-enabled = true
-cast_to = Vector3( 0, 0, -10 )
-layer_mask = 1
-type_mask = 6
-
-[node name="RayObjectAvoid2" type="RayCast" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.543885, 0, -1.05 )
-enabled = true
-cast_to = Vector3( 0, 0, -10 )
-layer_mask = 1
-type_mask = 6
 
 [node name="TestCube" type="TestCube" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.98411 )
 layers = 1
-geometry/visible = true
+geometry/visible = false
 geometry/material_override = null
 geometry/cast_shadow = 1
 geometry/receive_shadows = true
@@ -138,5 +123,35 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
+
+[node name="Area" type="Area" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.20162 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
 
 

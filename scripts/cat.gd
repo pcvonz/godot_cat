@@ -23,8 +23,8 @@ var Steering = load("/scripts/steering.gd")
 var RayLeft
 var RayRight
 var RayCenter
-var RayObjectAvoid1
-var RayObjectAvoid2
+var ObjectAvoidArea
+
 
 func _fixed_process(delta):
 	var SteeringForce = Vector3(0, 0, 0)
@@ -45,10 +45,10 @@ func _fixed_process(delta):
 			SteeringForce += Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 			#Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 	if flock_type & 64:
-		if RayObjectAvoid1.get_collider() or RayObjectAvoid2.get_collider():
-			SteeringForce += Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
+		#if RayObjectAvoid1.get_collider() or RayObjectAvoid2.get_collider():
+		if ObjectAvoidArea.get_overlapping_bodies().size() > 0:
+			SteeringForce += Steering.object_avoid(self, ObjectAvoidArea)
 			#Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
-	print(SteeringForce)
 	var temp = SteeringForce
 	SteeringForce = Vector3(temp.x, 0, temp.z)
 	
@@ -64,13 +64,10 @@ func _ready():
 	RayLeft = get_node("RayLeft")
 	RayRight = get_node("RayRight")
 	RayCenter = get_node("RayCenter")
-	RayObjectAvoid1 = get_node("RayObjectAvoid1")
-	RayObjectAvoid2 = get_node("RayObjectAvoid2")
+	ObjectAvoidArea = get_node("Area")
 	RayLeft.add_exception(self)
 	RayCenter.add_exception(self)
 	RayRight.add_exception(self)
-	RayObjectAvoid1.add_exception(self)
-	RayObjectAvoid2.add_exception(self)
 	target = "../target"
 	target = get_node(target)
 	Vehicle = Vehicle.new(mass, max_speed, max_force, max_turn_rate)
