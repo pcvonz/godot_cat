@@ -80,16 +80,16 @@ func wander(object, wander_object, wander_radius, wander_distance, wander_jitter
 func wall_avoid(object, RayLeft, RayCenter, RayRight):
 	var SteeringForce = Vector3(0, 0, 0)
 	if RayLeft.is_colliding():
-		SteeringForce += calc_wall_vel(object, RayLeft)
+		SteeringForce = calc_wall_vel(object, RayLeft)
 	if RayCenter.is_colliding():
-		SteeringForce += calc_wall_vel(object, RayCenter)
+		SteeringForce = calc_wall_vel(object, RayCenter)
 	if RayRight.is_colliding():
-		SteeringForce += calc_wall_vel(object, RayRight)
+		SteeringForce = calc_wall_vel(object, RayRight)
 	return SteeringForce
 
 func calc_wall_vel(object, ray):
 	var dist_to_col = (ray.get_collision_point() - object.get_global_transform().origin)
-	var overshoot = dist_to_col - ray.get_cast_to()
+	var overshoot = (object.get_global_transform().origin + ray.get_cast_to()) - ray.get_collision_point()
 	#Creating a steering force in the direction of the wall normal with the magnitude
 	#of the overshoot
 	return ray.get_collision_normal() * overshoot.length()
@@ -114,7 +114,7 @@ func calc_object_avoid(object, area):
 	
 	#now to calculate the braking force. 
 	var braking_weight = .2
-	SteeringForce.z += (col_obj.get_scale().z/2 - col_obj_local.x) * braking_weight
+	SteeringForce.z += (col_obj.get_scale().z/2 - col_obj_local.z) * braking_weight
 	return SteeringForce
 	
 #calculates the closest object. Currently used in object avoidance to get the closest object to avoid

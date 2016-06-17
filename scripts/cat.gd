@@ -24,10 +24,11 @@ var RayLeft
 var RayRight
 var RayCenter
 var ObjectAvoidArea
-
+var player
 
 func _fixed_process(delta):
 	var SteeringForce = Vector3(0, 0, 0)
+	
 	if flock_type & 1:
 		SteeringForce += Steering.seek(target, self)
 	if flock_type & 2:
@@ -42,9 +43,6 @@ func _fixed_process(delta):
 	if flock_type & 32:
 		if RayLeft.is_colliding() or RayCenter.is_colliding() or RayRight.is_colliding():
 			#Sanitize the y vector
-			print(RayLeft.get_collider())
-			print(RayCenter.get_collider())
-			print(RayRight.get_collider())
 			
 			SteeringForce += Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
 			#Steering.wall_avoid(self, RayLeft, RayCenter, RayRight)
@@ -53,6 +51,8 @@ func _fixed_process(delta):
 		if ObjectAvoidArea.get_overlapping_bodies().size() > 0:
 			SteeringForce += Steering.object_avoid(self, ObjectAvoidArea)
 			#Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
+	if player.calling == true:
+		SteeringForce += Steering.arrive(player, decel, self)
 	var temp = SteeringForce
 	SteeringForce = Vector3(temp.x, 0, temp.z)
 	
@@ -69,6 +69,7 @@ func _ready():
 	RayRight = get_node("RayRight")
 	RayCenter = get_node("RayCenter")
 	ObjectAvoidArea = get_node("Area")
+	player = get_node("../Observer")
 	RayLeft.add_exception(self)
 	RayCenter.add_exception(self)
 	RayRight.add_exception(self)
