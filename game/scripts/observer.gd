@@ -19,7 +19,7 @@ var calling = false
 
 func update(time_elapsed, force):
 	#f=ma -> a=f/a
-	var acceleration = force / MASS
+	var acceleration = Vector3(0, -.2, 0)
 	velocity  += acceleration * time_elapsed
 	#Need to figure out a way to truncate a vector
 	if velocity.length() > MAX_SPEED:

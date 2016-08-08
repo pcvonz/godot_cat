@@ -4,6 +4,8 @@
 [ext_resource path="res://meshes/cat.msh" type="Mesh" id=2]
 [ext_resource path="res://meshes/debug.msh" type="Mesh" id=3]
 
+
+
 [sub_resource type="BoxShape" id=1]
 
 extents = Vector3( 0.196902, 0.3653, 0.485977 )
