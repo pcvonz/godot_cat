@@ -78,19 +78,18 @@ params/attenuation = 0.153893
 
 [node name="cat" parent="." instance=ExtResource( 2 )]
 
-transform/local = Transform( -0.997029, 0, 0.0770217, 0, 1, 0, -0.0770217, 0, -0.997029, 1.29625, 2.9543, -3.68347 )
+transform/local = Transform( 0.714449, 0, -0.699687, 0, 1, 0, 0.699687, 0, 0.714449, 1.29625, 2.9543, -5.9427 )
 mass = 1.0
 max_speed = 4.0
 mass = 1.0
 wander_radius = 6.0
 wander_distance = 2.0
 wander_jitter = 4.0
-flock_type = 112
+flock_type = 33
 target = NodePath("../targ")
 
 [node name="RigidBody" type="RigidBody" parent="."]
 
-editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0892, -34.4742 )
 input/ray_pickable = true
@@ -99,8 +98,7 @@ shape_count = 1
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
+layers = 1
 mode = 0
 mass = 1.0
 friction = 1.0
@@ -124,7 +122,7 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
-geometry/cast_shadow = 1
+geometry/cast_shadow = true
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0
@@ -150,7 +148,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.655, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = SubResource( 2 )
-geometry/cast_shadow = 1
+geometry/cast_shadow = true
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0
@@ -164,135 +162,12 @@ geometry/baked_light_tex_id = 0
 
 [node name="Observer" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.502, 11.7115, 3.0203 )
-
-[node name="objects" type="Spatial" parent="."]
-
-editor/display_folded = true
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="target23" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6356, 0, -30.0286 )
-
-[node name="target24" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6356, 0, -25.3265 )
-
-[node name="target25" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9518, 0, -25.3265 )
-
-[node name="target26" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9518, 0, -21.3524 )
-
-[node name="target27" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4748, 0, -21.3524 )
-
-[node name="target28" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4748, 0, -16.9995 )
-
-[node name="target29" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4736, 0, -16.9995 )
-
-[node name="target8" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -15.1859 )
-
-[node name="target9" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7851, 0, -15.1859 )
-
-[node name="target10" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7851, 0, 9.94973 )
-
-[node name="target1" parent="objects" instance=ExtResource( 4 )]
-
-[node name="target2" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.5398, -14.1452 )
-
-[node name="target11" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.5398, 2.46424 )
-
-[node name="target12" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3301, 17.5398, 2.46424 )
-
-[node name="target13" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3301, 17.5398, -5.05584 )
-
-[node name="target14" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51001, 14.6375, -5.05584 )
-
-[node name="target15" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.51001, 14.6375, 8.30439 )
-
-[node name="target16" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2803, 14.6375, 8.30439 )
-
-[node name="target17" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2803, 14.6375, 0.351199 )
-
-[node name="target18" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9578, 9.5586, 0.351199 )
-
-[node name="target19" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9578, 9.5586, -8.70935 )
-
-[node name="target20" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3586, 9.5586, -8.70935 )
-
-[node name="target21" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3586, 9.5586, -24.4907 )
-
-[node name="target22" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9573, 9.5586, -24.4907 )
-
-[node name="target3" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.8594, 0, -40.4491 )
-
-[node name="target4" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5314, 28.7161, -40.4491 )
-
-[node name="target5" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.03851, 0, -19.4319 )
-
-[node name="target6" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4114, 0, -12.2069 )
-
-[node name="target7" parent="objects" instance=ExtResource( 4 )]
-
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.57007, 0, -5.68323 )
-
-[node name="targ" type="Spatial" parent="objects"]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1714, 0, -39.4689 )
+transform/local = Transform( 0.270272, 0, -0.962784, 0, 1, 0, 0.962784, 0, 0.270272, -4.11159, 1.11156, -6.87768 )
 
 [node name="target" parent="." instance=ExtResource( 4 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -30.0286 )
+layers = 1
 
 [node name="Spatial 2" parent="." instance=ExtResource( 5 )]
 
