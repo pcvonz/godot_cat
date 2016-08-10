@@ -1,6 +1,7 @@
 
 extends RigidBody
-
+signal Door
+signal Door_2
 # Member variables
 var r_pos = Vector2()
 var state
@@ -69,7 +70,9 @@ func _input(event):
 		r_pos = event.relative_pos
 	if(event.is_action_pressed('mouse_click')):
 		if get_node('Spatial/Camera/RayCast 2').is_colliding():
-			print(get_node('Spatial/Camera/RayCast 2').get_collider().get_parent().get_name())
+			var sig_name = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent().get_name()
+			print(sig_name)
+			emit_signal(str(sig_name))
 		if calling == true:
 			calling = false
 		else:
