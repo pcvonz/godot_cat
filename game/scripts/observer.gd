@@ -39,7 +39,6 @@ func _fixed_process(delta):
 	
 	#Direction orients the vector 
 	if (Input.is_action_pressed("move_forward")):
-		print(mov_speed)
 		dir = direction(Vector3(0, 0, -mov_speed))
 	if (Input.is_action_pressed("move_backward")):
 		dir = direction(Vector3(0, 0, mov_speed))
@@ -70,7 +69,7 @@ func _input(event):
 		r_pos = event.relative_pos
 	if(event.is_action_pressed('mouse_click')):
 		if get_node('Spatial/Camera/RayCast 2').is_colliding():
-			print(get_node('Spatial/Camera/RayCast 2').get_collider().get_name())
+			print(get_node('Spatial/Camera/RayCast 2').get_collider().get_parent().get_name())
 		if calling == true:
 			calling = false
 		else:

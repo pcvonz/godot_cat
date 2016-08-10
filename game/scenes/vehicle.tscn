@@ -21,7 +21,8 @@ shape_count = 1
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.526808 )
 shapes/0/trigger = false
-layers = 1
+collision/layers = 1
+collision/mask = 1
 mode = 0
 mass = 50.0
 friction = 1.0
@@ -61,11 +62,11 @@ _update_shape_index = 0
 [node name="MeshInstance" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( -0.00259105, 0, 0.999997, 0, 1, 0, -0.999997, 0, -0.00259105, 0, 0, 0.805851 )
+transform/local = Transform( -0.00259105, 0, 0.999997, 0, 1, 0, -0.999997, 0, -0.00259105, 0, 1.96924, 7.07853 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
-geometry/cast_shadow = true
+geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0
@@ -78,6 +79,7 @@ geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
 mesh/mesh = ExtResource( 2 )
 mesh/skeleton = NodePath("..")
+material/0 = null
 
 [node name="RayLeft" type="RayCast" parent="."]
 
@@ -85,6 +87,8 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
+layer_mask = 1
+type_mask = 15
 
 [node name="RayRight" type="RayCast" parent="."]
 
@@ -92,12 +96,16 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
+layer_mask = 1
+type_mask = 15
 
 [node name="RayCenter" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
+layer_mask = 1
+type_mask = 15
 
 [node name="Area" type="Area" parent="."]
 
@@ -119,6 +127,8 @@ angular_damp = 1.0
 priority = 0.0
 monitoring = true
 monitorable = true
+collision/layers = 1
+collision/mask = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 
@@ -134,7 +144,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.667 )
 layers = 1
 geometry/visible = false
 geometry/material_override = null
-geometry/cast_shadow = true
+geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0
@@ -147,5 +157,6 @@ geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
 mesh/mesh = ExtResource( 3 )
 mesh/skeleton = NodePath("..")
+material/0 = null
 
 

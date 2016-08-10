@@ -78,7 +78,7 @@ params/attenuation = 0.153893
 
 [node name="cat" parent="." instance=ExtResource( 2 )]
 
-transform/local = Transform( 0.714449, 0, -0.699687, 0, 1, 0, 0.699687, 0, 0.714449, 1.29625, 2.9543, -5.9427 )
+transform/local = Transform( 0.714449, 0, -0.699687, 0, 1, 0, 0.699687, 0, 0.714449, 1.29625, -0.470216, -5.9427 )
 mass = 1.0
 max_speed = 4.0
 mass = 1.0
@@ -98,7 +98,8 @@ shape_count = 1
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
-layers = 1
+collision/layers = 1
+collision/mask = 1
 mode = 0
 mass = 1.0
 friction = 1.0
@@ -122,7 +123,7 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
-geometry/cast_shadow = true
+geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0
@@ -148,7 +149,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.655, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = SubResource( 2 )
-geometry/cast_shadow = true
+geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
 geometry/range_end = 0.0
@@ -167,11 +168,10 @@ transform/local = Transform( 0.270272, 0, -0.962784, 0, 1, 0, 0.962784, 0, 0.270
 [node name="target" parent="." instance=ExtResource( 4 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -30.0286 )
-layers = 1
 
 [node name="Spatial 2" parent="." instance=ExtResource( 5 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.607229, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.297771, 0 )
 
 [node name="Spatial" parent="." instance=ExtResource( 6 )]
 
