@@ -1,5 +1,5 @@
 
-extends Spatial
+extends RigidBody
 
 # Member variables
 var r_pos = Vector2()
@@ -7,25 +7,12 @@ var state
 var velocity = Vector3(0,0,0)
 const STATE_MENU = 0
 const STATE_GRAB = 1
-var speed = .0002
+var mov_speed = 5
 var ray
-
-var MASS = 4000
-var MAX_SPEED = 20
 
 
 #Variable set to seek cats towards you
-var calling = false
-
-func update(time_elapsed, force):
-	#f=ma -> a=f/a
-	var acceleration = Vector3(0, -.2, 0)
-	velocity  += acceleration * time_elapsed
-	#Need to figure out a way to truncate a vector
-	if velocity.length() > MAX_SPEED:
-		 velocity = velocity.normalized()*MAX_SPEED
-	#position += velocity * time_elapsed
-	
+var calling = false	
 
 func direction(vector):
 	#The spacial is like the body. It doesn't rotate and get stuck on the ground.
@@ -40,15 +27,9 @@ func impulse(event, action):
 		return false
 
 func _fixed_process(delta):
-	if ray.is_colliding():
-		update(delta, ray.get_collision_point() - get_global_transform().origin)
-		move(velocity)
-	
 	if(state != STATE_GRAB):
 		return
-	var space_state = get_world().get_direct_space_state()
-#	var result = space_state.intersect_ray( get_global_transform().origin, get_parent().get_node('Floor').get_global_transform().origin, [self])
-#	print(result)
+
 	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -56,21 +37,20 @@ func _fixed_process(delta):
 	var cam = get_global_transform()
 	var org = get_translation()
 	
+	#Direction orients the vector 
 	if (Input.is_action_pressed("move_forward")):
-		dir += direction(Vector3(0, 0, -speed))
+		print(mov_speed)
+		dir = direction(Vector3(0, 0, -mov_speed))
 	if (Input.is_action_pressed("move_backward")):
-		dir += direction(Vector3(0, 0, speed))
+		dir = direction(Vector3(0, 0, mov_speed))
 	if (Input.is_action_pressed("move_left")):
-		dir += direction(Vector3(-speed, 0, 0))
+		dir = direction(Vector3(-mov_speed, 0, 0))
 	if (Input.is_action_pressed("move_right")):
-		dir += direction(Vector3(speed, 0, 0))
-	if (Input.is_action_pressed("jump")):
-		##jump?
-		pass
-	
-	dir = dir.normalized()
-	
-	move(dir*10*delta)
+		dir = direction(Vector3(mov_speed, 0, 0))
+	if(get_colliding_bodies().size() == 0):
+		set_linear_velocity(get_linear_velocity())
+	else:
+		set_linear_velocity(dir*mov_speed)
 	var d = delta*0.1
 	
 	var yaw = get_transform().rotated(Vector3(0, 1, 0), d*r_pos.x)
@@ -110,5 +90,4 @@ func _input(event):
 func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
-	ray = get_node("RayCast")
 	state = STATE_GRAB

@@ -6,7 +6,7 @@
 
 extents = Vector3( 1, 1.22758, 0.604634 )
 
-[node name="Observer" type="KinematicBody"]
+[node name="Observer" type="RigidBody"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 input/ray_pickable = true
@@ -15,12 +15,24 @@ shape_count = 1
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
-layers = 1
-collide_with/static = true
-collide_with/kinematic = true
-collide_with/rigid = true
-collide_with/character = true
-collision/margin = 0.001
+collision/layers = 1
+collision/mask = 1
+mode = 2
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = false
+contacts_reported = 3
+contact_monitor = true
+sleeping = false
+can_sleep = true
+axis_lock = 0
+velocity/linear = Vector3( 0, 0, 0 )
+velocity/angular = Vector3( 0, 0, 0 )
+damp_override/linear = -1.0
+damp_override/angular = -1.0
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"3D" }
 
@@ -30,13 +42,6 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
-
-[node name="RayCast" type="RayCast" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.12946, 0 )
-enabled = true
-cast_to = Vector3( 0, -1000, 0 )
 
 [node name="Spatial" type="Spatial" parent="."]
 
@@ -64,5 +69,3 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.022754, -0.554129 )
 enabled = true
 cast_to = Vector3( 0, 0, -20 )
-
-
