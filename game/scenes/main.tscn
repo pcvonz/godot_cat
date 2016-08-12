@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/vehicle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/target.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ettor_chair_1.scn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/house_scene.scn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/door.scn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/house_scene.scn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -173,6 +174,8 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -30.0286 )
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.297771, 0 )
 
-[node name="Spatial" parent="." instance=ExtResource( 6 )]
+[node name="Spatial 3" parent="." instance=ExtResource( 6 )]
+
+[node name="Room" parent="." instance=ExtResource( 7 )]
 
 
