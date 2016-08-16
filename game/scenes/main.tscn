@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/vehicle.tscn" type="PackedScene" id=2]
@@ -50,6 +50,11 @@ textures/specular_exp_tc = 0
 textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
+
+[sub_resource type="NavigationMesh" id=15]
+
+vertices = Vector3Array( 0.775844, -0.996259, -1.2931, 1.94389, -0.996259, -1.2931, 1.94389, -0.996259, -3.49611, 0.775844, -0.996259, -3.49611, 0.775844, -0.996259, 0.759402, 1.94389, -0.996259, 0.759402, 1.94389, -0.996259, -0.830815, 0.775844, -0.996259, -0.830815, -1.00572, -0.996259, -0.830815, 0.321605, -0.996259, -0.830815, 0.321605, -0.996259, -1.2931, -1.00572, -0.996259, -1.2931, -1.00572, -0.996259, 0.759402, 0.321605, -0.996259, 0.759402, 0.321605, -0.996259, -3.49611, -1.00572, -0.996259, -3.49611, 0.769282, -0.996259, -3.51362, 1.94389, -0.996259, -3.51362, 1.94389, -0.99626, -7.76913, 0.769282, -0.99626, -7.76913, -2.35977, -0.996259, -3.51362, 0.287636, -0.996259, -3.51362, 0.287636, -0.99626, -7.76913, -2.35977, -0.99626, -7.76913, 0.00183439, -0.504797, -1, 0.00183439, -0.504797, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 0.00183439, -0.504797, 1, 0.00183439, -0.504797, -1, -1, 0.336941, -1, -1, 0.336941, 1 )
+polygons = [ IntArray( 0, 2, 1 ), IntArray( 0, 3, 2 ), IntArray( 4, 6, 5 ), IntArray( 4, 7, 6 ), IntArray( 7, 1, 6 ), IntArray( 7, 0, 1 ), IntArray( 8, 10, 9 ), IntArray( 8, 11, 10 ), IntArray( 12, 9, 13 ), IntArray( 12, 8, 9 ), IntArray( 11, 14, 10 ), IntArray( 11, 15, 14 ), IntArray( 9, 0, 7 ), IntArray( 9, 10, 0 ), IntArray( 13, 7, 4 ), IntArray( 13, 9, 7 ), IntArray( 10, 3, 0 ), IntArray( 10, 14, 3 ), IntArray( 16, 18, 17 ), IntArray( 16, 19, 18 ), IntArray( 20, 22, 21 ), IntArray( 20, 23, 22 ), IntArray( 21, 19, 16 ), IntArray( 21, 22, 19 ), IntArray( 24, 26, 25 ), IntArray( 24, 27, 26 ), IntArray( 28, 30, 29 ), IntArray( 28, 31, 30 ), IntArray( 32, 34, 33 ), IntArray( 32, 35, 34 ) ]
 
 [node name="Spatial" type="Spatial"]
 
@@ -172,15 +177,50 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 up_vector = Vector3( 0, 1, 0 )
 script/script = ExtResource( 8 )
 
-[node name="targ" type="RayCast" parent="Navigation"]
+[node name="targ" type="TestCube" parent="Navigation"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122015, 2.91915, -20.0804 )
-enabled = true
-cast_to = Vector3( 0, -20, 0 )
-layer_mask = 1
-type_mask = 15
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6069, 0.229982, -28.8497 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
 
 [node name="Room" parent="Navigation" instance=ExtResource( 9 )]
 
+[node name="shape" parent="Navigation/Room/floor/col"]
 
+_update_shape_index = 0
+
+[node name="shape" parent="Navigation/Room/ramp/col"]
+
+_update_shape_index = 0
+
+[node name="shape" parent="Navigation/Room/room/col"]
+
+_update_shape_index = 0
+
+[node name="shape" parent="Navigation/Room/Entry/col"]
+
+_update_shape_index = 0
+
+[node name="nav" type="NavigationMeshInstance" parent="Navigation/Room"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 4.99009, 0, 0, 0, 4.99009, 0, 0, 0, 4.99009, -3.24221, 4.03891, 6.53681 )
+navmesh = SubResource( 15 )
+enabled = true
+
+
+[editable path="Observer"]
+[editable path="Navigation/Room"]

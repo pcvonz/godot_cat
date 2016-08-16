@@ -79,10 +79,10 @@ func _input(event):
 			var object = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent()
 			print(object.get_name())
 			emit_signal(object.get_name(), object)
-		if calling == true:
-			calling = false
-		else:
-			calling = true
+#		if calling == true:
+#			calling = false
+#		else:
+#			calling = true
 			
 			
 	if(impulse(event, "ui_cancel")):
