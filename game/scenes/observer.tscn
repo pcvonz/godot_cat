@@ -68,4 +68,8 @@ v_offset = 0.0
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.022754, -0.554129 )
 enabled = true
-cast_to = Vector3( 0, 0, -20 )
+cast_to = Vector3( 0, 0, -2 )
+layer_mask = 1
+type_mask = 15
+
+

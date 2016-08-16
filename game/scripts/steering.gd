@@ -20,7 +20,12 @@ func seek(target, object):
 	var desired_vec = target.get_global_transform().origin - object.get_global_transform().origin
 	desired_vec = desired_vec.normalized() * max_speed
 	return(desired_vec - object.get_linear_velocity())
-	
+
+func seek_point(seek_point, object):
+	var desired_vec = seek_point - object.get_global_transform().origin
+	desired_vec = desired_vec.normalized() * max_speed
+	return(desired_vec - object.get_linear_velocity())
+
 func seek_pos(target, object):
 	var desired_vec = target.normalized() * max_speed
 	return(desired_vec - object.get_linear_velocity())

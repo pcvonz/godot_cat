@@ -70,6 +70,11 @@ func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		r_pos = event.relative_pos
 	if(event.is_action_pressed('mouse_click')):
+		var from = get_node("Spatial/Camera").project_ray_origin(event.pos)
+		var to = from+get_node("Spatial/Camera").project_ray_normal(event.pos)*100
+		
+#		get_node('Spatial/Camera/RayCast 2').set_global_transform(Transform(get_global_transform().basis, from))
+#		get_node('Spatial/Camera/RayCast 2').set_cast_to(to)
 		if get_node('Spatial/Camera/RayCast 2').is_colliding():
 			var object = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent()
 			print(object.get_name())

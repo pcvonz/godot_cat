@@ -13,7 +13,7 @@ export var max_turn_rate = 1.0
 export var wander_radius = 1.0
 export var wander_distance = 1.0
 export var wander_jitter = 1.0
-export(int, FLAGS, "Seek", "flee", "Pursuit", "Evade", "Wander", "Wall Avoid", "Object Avoid") var flock_type
+export(int, FLAGS, "Seek", "flee", "Pursuit", "Evade", "Wander", "Wall Avoid", "Object Avoid", "seek_point") var flock_type
 export(NodePath) var target
 
 var Vehicle = load("scripts/Vehicle.gd")
@@ -25,6 +25,8 @@ var RayRight
 var RayCenter
 var ObjectAvoidArea
 var player
+
+var seek_point = Vector3()
 
 func _fixed_process(delta):
 	var SteeringForce = Vector3(0, 0, 0)
@@ -51,6 +53,8 @@ func _fixed_process(delta):
 		if ObjectAvoidArea.get_overlapping_bodies().size() > 0:
 			SteeringForce += Steering.object_avoid(self, ObjectAvoidArea)
 			#Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
+	if flock_type & 128:
+		SteeringForce += Steering.seek_point(seek_point, self)
 	if player.calling == true:
 		SteeringForce += Steering.arrive(player, decel, self)
 	var temp = SteeringForce

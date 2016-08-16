@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/vehicle.tscn" type="PackedScene" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://scenes/target.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ettor_chair_1.scn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/door.scn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/house_scene.scn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/tty.scn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/tty.scn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/nav.gd" type="Script" id=8]
+[ext_resource path="res://scenes/house_scene.scn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -56,28 +57,6 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
 boids = 0
 
-[node name="OmniLight" type="OmniLight" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.0352, 0 )
-layers = 1
-params/enabled = true
-params/editor_only = false
-params/bake_mode = 0
-params/energy = 0.17
-colors/diffuse = Color( 1, 1, 1, 1 )
-colors/specular = Color( 1, 1, 1, 1 )
-shadow/shadow = false
-shadow/darkening = 0.0
-shadow/z_offset = 0.001
-shadow/z_slope_scale = 0.0
-shadow/esm_multiplier = 60.0
-shadow/blur_passes = 4.0
-projector = null
-operator = 0
-params/radius = 29.41
-params/attenuation = 0.153893
-
 [node name="cat" parent="." instance=ExtResource( 2 )]
 
 transform/local = Transform( 0.714449, 0, -0.699687, 0, 1, 0, 0.699687, 0, 0.714449, 1.29625, -0.470216, -5.9427 )
@@ -87,7 +66,7 @@ mass = 1.0
 wander_radius = 6.0
 wander_distance = 2.0
 wander_jitter = 4.0
-flock_type = 33
+flock_type = 128
 target = NodePath("../targ")
 
 [node name="RigidBody" type="RigidBody" parent="."]
@@ -183,10 +162,25 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.132163, 0.0845861, -1
 
 transform/local = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 6.36551, 0.0845861, 0.720795 )
 
-[node name="Room" parent="." instance=ExtResource( 7 )]
-
-[node name="Spatial" parent="." instance=ExtResource( 8 )]
+[node name="Spatial" parent="." instance=ExtResource( 7 )]
 
 transform/local = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -3.02042, 1.18372, -0.162284 )
+
+[node name="Navigation" type="Navigation" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+up_vector = Vector3( 0, 1, 0 )
+script/script = ExtResource( 8 )
+
+[node name="targ" type="RayCast" parent="Navigation"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122015, 2.91915, -20.0804 )
+enabled = true
+cast_to = Vector3( 0, -20, 0 )
+layer_mask = 1
+type_mask = 15
+
+[node name="Room" parent="Navigation" instance=ExtResource( 9 )]
 
 
