@@ -20,11 +20,26 @@ func seek(target, object):
 	var desired_vec = target.get_global_transform().origin - object.get_global_transform().origin
 	desired_vec = desired_vec.normalized() * max_speed
 	return(desired_vec - object.get_linear_velocity())
-
-func seek_point(seek_point, object):
-	var desired_vec = seek_point - object.get_global_transform().origin
-	desired_vec = desired_vec.normalized() * max_speed
-	return(desired_vec - object.get_linear_velocity())
+#Don't use seek until arrive, need to figure in distance from the actual destination, not the
+#intermediary points.
+func seek_point(seek_point, decel, object):
+#	var desired_vec = seek_point - object.get_global_transform().origin
+#	desired_vec = desired_vec.normalized() * max_speed
+#	return(desired_vec - object.get_linear_velocity())
+	
+	var target_vec = seek_point
+	var curr_vec = object.get_global_transform().origin
+	var vec_to = target_vec - curr_vec
+	var distance_to = vec_to.length()
+	
+	if distance_to > 2:
+		var decel_tweak = 0.3
+		var speed = distance_to / decel * decel_tweak
+		#Make sure speed doesn't exceed the max speed
+		min(speed, max_speed)
+		var desired_vec = vec_to * speed / distance_to
+		return(desired_vec - object.get_linear_velocity())
+	return(-object.get_linear_velocity())
 
 func seek_pos(target, object):
 	var desired_vec = target.normalized() * max_speed

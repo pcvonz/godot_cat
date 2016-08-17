@@ -8,18 +8,21 @@ var path = []
 var begin = Vector3()
 var end = Vector3()
 var cat
+var count = 0
 func _process(delta):
 	if (path.size()>0):
+		count+= 1
+		
 		print(cat.get_translation().distance_to(path[path.size()-1]) < .1)
-		if(cat.get_translation().distance_to(path[path.size()-1]) > .5):
+		if(cat.get_translation().distance_to(path[path.size()-1]) > 2):
 			cat.seek_point = path[path.size()-1]
-			print("SEEKING THIS POINT: ", cat.seek_point)
 		else:
 			print("ARRIVE: ", path)
 			path.remove(path.size()-1)
 
 func _update_path():
-	
+	cat.get_node("Spatial/AnimationPlayer").get_animation("default").set_loop(true)
+	cat.get_node("Spatial/AnimationPlayer").play("default")
 	begin = get_closest_point(cat.get_translation())
 #	print(end)
 	var p = get_simple_path(begin, end, true)

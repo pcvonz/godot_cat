@@ -180,7 +180,7 @@ script/script = ExtResource( 8 )
 [node name="targ" type="TestCube" parent="Navigation"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6069, 0.229982, -28.8497 )
+transform/local = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -8.6069, 0.229982, -28.8497 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null

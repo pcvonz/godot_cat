@@ -54,7 +54,7 @@ func _fixed_process(delta):
 			SteeringForce += Steering.object_avoid(self, ObjectAvoidArea)
 			#Steering.object_avoid(self, RayObjectAvoid1, RayObjectAvoid2)
 	if flock_type & 128:
-		SteeringForce += Steering.seek_point(seek_point, self)
+		SteeringForce += Steering.seek_point(seek_point, decel, self)
 	if player.calling == true:
 		SteeringForce += Steering.arrive(player, decel, self)
 	var temp = SteeringForce

@@ -1,12 +1,13 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scripts/cat.gd" type="Script" id=1]
-[ext_resource path="res://meshes/cat.msh" type="Mesh" id=2]
-[ext_resource path="res://meshes/debug.msh" type="Mesh" id=3]
+[ext_resource path="res://meshes/debug.msh" type="Mesh" id=2]
+[ext_resource path="res://scenes/cat_retop_3.scn" type="PackedScene" id=3]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="CapsuleShape" id=3]
 
-extents = Vector3( 0.196902, 0.3653, 0.485977 )
+radius = 0.404803
+height = 1.0
 
 [sub_resource type="BoxShape" id=2]
 
@@ -18,8 +19,8 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.526808 )
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.526808 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -54,32 +55,10 @@ target = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.526808 )
-shape = SubResource( 1 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.526808 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( -0.00259105, 0, 0.999997, 0, 1, 0, -0.999997, 0, -0.00259105, 0, 1.96924, 7.07853 )
-layers = 1
-geometry/visible = true
-geometry/material_override = null
-geometry/cast_shadow = 1
-geometry/receive_shadows = true
-geometry/range_begin = 0.0
-geometry/range_end = 0.0
-geometry/extra_cull_margin = 0.0
-geometry/billboard = false
-geometry/billboard_y = false
-geometry/depth_scale = false
-geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
-geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 2 )
-mesh/skeleton = NodePath("..")
-material/0 = null
 
 [node name="RayLeft" type="RayCast" parent="."]
 
@@ -155,8 +134,12 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 3 )
+mesh/mesh = ExtResource( 2 )
 mesh/skeleton = NodePath("..")
 material/0 = null
+
+[node name="Spatial" parent="." instance=ExtResource( 3 )]
+
+transform/local = Transform( -0.0117476, 0, 0.999931, 0, 1, 0, -0.999931, 0, -0.0117476, 0, 0, 0.570389 )
 
 
