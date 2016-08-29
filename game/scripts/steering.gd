@@ -26,7 +26,7 @@ func seek_point(seek_point, decel, object):
 #	var desired_vec = seek_point - object.get_global_transform().origin
 #	desired_vec = desired_vec.normalized() * max_speed
 #	return(desired_vec - object.get_linear_velocity())
-	
+#	
 	var target_vec = seek_point
 	var curr_vec = object.get_global_transform().origin
 	var vec_to = target_vec - curr_vec

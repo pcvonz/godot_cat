@@ -140,6 +140,6 @@ material/0 = null
 
 [node name="Spatial" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( -0.0117476, 0, 0.999931, 0, 1, 0, -0.999931, 0, -0.0117476, 0, 0, 0.570389 )
+transform/local = Transform( -0.0117476, 0, 0.999931, 0, 1, 0, -0.999931, 0, -0.0117476, 0, -0.294937, 0.570389 )
 
 
