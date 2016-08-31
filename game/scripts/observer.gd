@@ -1,8 +1,9 @@
 
 extends RigidBody
-signal Door
-signal Door_2
+signal door
+
 signal tty
+signal lamp
 # Member variables
 var r_pos = Vector2()
 var state

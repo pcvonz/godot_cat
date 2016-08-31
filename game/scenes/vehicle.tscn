@@ -4,7 +4,7 @@
 [ext_resource path="res://meshes/debug.msh" type="Mesh" id=2]
 [ext_resource path="res://scenes/cat_retop_3.scn" type="PackedScene" id=3]
 
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=1]
 
 radius = 0.404803
 height = 1.0
@@ -19,8 +19,8 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.526808 )
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.951571 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -55,15 +55,15 @@ target = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.526808 )
-shape = SubResource( 3 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.951571 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="RayLeft" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0 )
+transform/local = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0.424763 )
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
 layer_mask = 1
@@ -72,7 +72,7 @@ type_mask = 15
 [node name="RayRight" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0 )
+transform/local = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0.424763 )
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
 layer_mask = 1
@@ -81,6 +81,7 @@ type_mask = 15
 [node name="RayCenter" type="RayCast" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.424763 )
 enabled = true
 cast_to = Vector3( 0, 0, -2 )
 layer_mask = 1
@@ -89,7 +90,7 @@ type_mask = 15
 [node name="Area" type="Area" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.06795 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.64319 )
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
@@ -119,7 +120,7 @@ _update_shape_index = 0
 [node name="TestCube" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.667 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.2422 )
 layers = 1
 geometry/visible = false
 geometry/material_override = null
@@ -140,6 +141,6 @@ material/0 = null
 
 [node name="Spatial" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( -0.0117476, 0, 0.999931, 0, 1, 0, -0.999931, 0, -0.0117476, 0, -0.294937, 0.570389 )
+transform/local = Transform( -0.0117476, 0, 0.999931, 0, 1, 0, -0.999931, 0, -0.0117476, 0, -0.294937, 0.995152 )
 
 
