@@ -9,20 +9,34 @@ var begin = Vector3()
 var end = Vector3()
 var cat
 var count = 0
-var food_limit = 200
-var time = 195
+var hunger_limit = 60
+var time = 0
 var arrive = true
 var fetching_food = false
+var hunger = 0
+var stomach = []
+var energy = 50
 
 func _process(delta):
 	time = time + delta
-	if(time > food_limit):
+	if (stomach.size() < 3):
+		hunger = delta + hunger
+	if(stomach.size() >0):
+		if(stomach[0] <= 0):
+			go_to_bathroom()
+		else:
+			stomach[0] = stomach[0] - delta
+	if(hunger > hunger_limit and stomach.size() <= 3):
 		get_food()
 		move_cat()
-	else:
+	elif energy > 0:
 		wander()
+		energy = energy - delta
 		move_cat_wander()
-	
+
+func go_to_bathroom():
+	print("Bathroom")
+	stomach.pop_front()
 
 func move_cat():
 	if (path.size()>0):
@@ -44,19 +58,39 @@ func move_cat_wander():
 #			print(path[path.size()-1])
 			path.remove(path.size()-1)
 	else:
-		arrive = true
+		sit()
+		
+
+func sit():
+	print("Sitting")
+	cat.get_node("Spatial/AnimationPlayer").get_animation("default").set_loop(false)
+	print(cat.get_node("Spatial/AnimationPlayer").is_playing())
+	if(not cat.get_node("Spatial/AnimationPlayer").is_playing()):
+		print("HELJKSD:FLKJ")
 		_update_path()
 
 func get_food():
+	print("Getting food")
 	if end != get_closest_point(get_node("Room/bowl-water").get_translation()):
 		arrive = false
 		end = get_closest_point(get_node("Room/bowl-water").get_translation())
 		_update_path()
 	if(arrive == true):
-		time = 0
-	
+		arrive = false
+		eat()
+
+#Use signal to trigger something after animation ends?
+func eat():
+	print("Eating")
+	hunger = 0
+	digest_food()
+
+func digest_food():
+	randomize()
+	stomach.append(rand_range(120, 150))
 
 func wander():
+	print("wandering")
 	var nav_points = get_node("Room/nav_empty").get_children()
 	randomize()
 	end = get_closest_point(nav_points[rand_range(0, nav_points.size() - 1)].get_translation())
@@ -84,4 +118,6 @@ func _ready():
 	cat= get_node("../cat")
 	set_process_input(true)
 	set_process(true)
+	wander()
+	_update_path()
 

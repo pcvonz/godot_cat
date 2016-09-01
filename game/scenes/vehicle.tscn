@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape" id=1]
 
-radius = 0.404803
+radius = 0.248557
 height = 1.0
 
 [sub_resource type="BoxShape" id=2]
@@ -20,7 +20,7 @@ input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.951571 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0.212076, 0.951571 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -55,7 +55,7 @@ target = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0, 0.951571 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0.212076, 0.951571 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
