@@ -35,7 +35,7 @@ func _process(delta):
 		move_cat_wander()
 
 func go_to_bathroom():
-	print("Bathroom")
+#	print("Bathroom")
 	stomach.pop_front()
 
 func move_cat():
@@ -60,17 +60,16 @@ func move_cat_wander():
 	else:
 		sit()
 		
-
 func sit():
-	print("Sitting")
+#	print("Sitting")
 	cat.get_node("Spatial/AnimationPlayer").get_animation("default").set_loop(false)
-	print(cat.get_node("Spatial/AnimationPlayer").is_playing())
+#	print(cat.get_node("Spatial/AnimationPlayer").is_playing())
 	if(not cat.get_node("Spatial/AnimationPlayer").is_playing()):
-		print("HELJKSD:FLKJ")
+#		print("HELJKSD:FLKJ")
 		_update_path()
 
 func get_food():
-	print("Getting food")
+#	print("Getting food")
 	if end != get_closest_point(get_node("Room/bowl-water").get_translation()):
 		arrive = false
 		end = get_closest_point(get_node("Room/bowl-water").get_translation())
@@ -81,7 +80,7 @@ func get_food():
 
 #Use signal to trigger something after animation ends?
 func eat():
-	print("Eating")
+#	print("Eating")
 	hunger = 0
 	digest_food()
 
@@ -90,7 +89,7 @@ func digest_food():
 	stomach.append(rand_range(120, 150))
 
 func wander():
-	print("wandering")
+#	print("wandering")
 	var nav_points = get_node("Room/nav_empty").get_children()
 	randomize()
 	end = get_closest_point(nav_points[rand_range(0, nav_points.size() - 1)].get_translation())

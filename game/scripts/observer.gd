@@ -71,20 +71,14 @@ func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		r_pos = event.relative_pos
 	if(event.is_action_pressed('interact')):
-#		var from = get_node("Spatial/Camera").project_ray_origin(event.pos)
-#		var to = from+get_node("Spatial/Camera").project_ray_normal(event.pos)*100
-		
-#		get_node('Spatial/Camera/RayCast 2').set_global_transform(Transform(get_global_transform().basis, from))
-#		get_node('Spatial/Camera/RayCast 2').set_cast_to(to)
+		var from = get_node("Spatial/Camera").project_ray_origin(event.pos)
+		var to = from.inverse()+get_node("Spatial/Camera").project_ray_normal(event.pos)*100
+		get_node("../beep").set_global_transform(Transform(get_node("../beep").get_global_transform().basis, ray.get_collision_point()))
+		ray.set_cast_to(to.inverse())
 		if get_node('Spatial/Camera/RayCast 2').is_colliding():
 			var object = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent()
 			print(object.get_name())
 			emit_signal(object.get_name(), object)
-#		if calling == true:
-#			calling = false
-#		else:
-#			calling = true
-			
 			
 	if(impulse(event, "ui_cancel")):
 		if(state == STATE_GRAB):
@@ -99,4 +93,7 @@ func _input(event):
 func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
+	ray = get_node('Spatial/Camera/RayCast 2')
+	ray.add_exception(get_node("CollisionShape"))
+	ray.add_exception(get_node("."))
 	state = STATE_GRAB
