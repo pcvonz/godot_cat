@@ -8,7 +8,7 @@ extends Spatial
 export var boids = 0
 signal door(node)
 signal tty(node)
-signal lamp(node)
+signal lamp( camera, event, click_pos, click_normal, shape_idx, light)
 var open = false
 var anim
 
@@ -21,8 +21,9 @@ func _ready():
 	get_node("Observer").connect("door", self, "toggle_anim")
 	connect("tty", self, "toggle_anim")
 	get_node("Observer").connect("tty", self, "toggle_anim")
-	connect("lamp", self, "toggle_light")
-	get_node("Observer").connect("lamp", self, "toggle_light")
+	get_node("small lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("small lamp/light")])
+	get_node("tall_lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("tall_lamp/light")])
+	get_node("small lamp1/lamp/col").connect("input_event", self, "toggle_light", [get_node("small lamp1/light")])
 	
 func toggle_anim(node):
 	anim = node.get_parent().get_node("AnimationPlayer")
@@ -31,9 +32,11 @@ func toggle_anim(node):
 	else:
 		anim.play_backwards()
 
-func toggle_light(node):
-	var light = node.get_node("../light")
-	if(light.is_enabled()):
-		light.set_enabled(false)
-	else:
-		light.set_enabled(true)
+func toggle_light( camera, event, click_pos, click_normal, shape_idx, light):
+	if(event.is_action_pressed("interact")):
+		print(event)
+		print(shape_idx)
+		if(light.is_enabled()):
+			light.set_enabled(false)
+		else:
+			light.set_enabled(true)

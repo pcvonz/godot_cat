@@ -199,11 +199,11 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3977, 0, -24.1987 )
 
 [node name="closet_door 2" parent="." instance=ExtResource( 5 )]
 
-transform/local = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 4.83692, -0.89692, -10.9149 )
+transform/local = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 2.62995, -0.949636, -10.9149 )
 
 [node name="entry_door" parent="." instance=ExtResource( 5 )]
 
-transform/local = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 6.53809, -0.921823, 2.3764 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.53809, -0.921823, 0.058651 )
 
 [node name="valentine" parent="." instance=ExtResource( 6 )]
 
@@ -211,6 +211,7 @@ transform/local = Transform( 0.0635462, 0, -0.293193, 0, 0.3, 0, 0.293193, 0, 0.
 
 [node name="Navigation" type="Navigation" parent="."]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 up_vector = Vector3( 0, 1, 0 )
 script/script = ExtResource( 7 )
@@ -288,3 +289,4 @@ geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
 
 
+[editable path="small lamp"]

@@ -12,8 +12,9 @@ const STATE_MENU = 0
 const STATE_GRAB = 1
 var mov_speed = 5
 var ray
-
-
+var user_clicked = false
+var from
+var to
 #Variable set to seek cats towards you
 var calling = false	
 
@@ -31,6 +32,13 @@ func impulse(event, action):
 
 func _fixed_process(delta):
 	if(state != STATE_GRAB):
+		if get_node('Spatial/Camera/RayCast 2').is_colliding() and user_clicked == true:
+			var object = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent()
+#			print(object.get_name())
+#			emit_signal(object.get_name(), object)
+#			ray.set_cast_to(to)
+#			get_node("../beep").set_global_transform(Transform(get_node("../beep").get_global_transform().basis, ray.get_collision_point()))		
+#			user_clicked = false
 		return
 
 	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
@@ -67,18 +75,16 @@ func _fixed_process(delta):
 	get_viewport().get_mouse_pos()
 
 
+
 func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		r_pos = event.relative_pos
 	if(event.is_action_pressed('interact')):
-		var from = get_node("Spatial/Camera").project_ray_origin(event.pos)
-		var to = from.inverse()+get_node("Spatial/Camera").project_ray_normal(event.pos)*100
-		get_node("../beep").set_global_transform(Transform(get_node("../beep").get_global_transform().basis, ray.get_collision_point()))
-		ray.set_cast_to(to.inverse())
-		if get_node('Spatial/Camera/RayCast 2').is_colliding():
-			var object = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent()
-			print(object.get_name())
-			emit_signal(object.get_name(), object)
+		from = get_node("Spatial/Camera").project_ray_origin(event.pos)
+		to = from+get_node("Spatial/Camera").project_local_ray_normal(event.pos)*100
+		
+		user_clicked = true
+
 			
 	if(impulse(event, "ui_cancel")):
 		if(state == STATE_GRAB):
