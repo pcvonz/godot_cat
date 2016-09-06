@@ -19,7 +19,7 @@ var time = 0
 var arrive = true
 
 var stomach = []
-var energy = 50
+var energy = 5
 
 #Wait while wandering
 var wait = 0
@@ -28,24 +28,35 @@ var wait_time = 0
 var sitting = false
 var eating = false
 
+var sleeping = false
+var sleep_time = 0
+var sleep = 0
+
 func _process(delta):
 	time = time + delta
 	wait_time = wait_time + delta
-	if (stomach.size() < 3):
+	sleep_time = sleep_time + delta
+	print("sleeping ", sleeping)
+	print("sitting ", sitting)
+	print("eating ", eating)
+	if(energy < 0):
+		sleep()
+	elif(hunger > hunger_limit and stomach.size() <= 3 and not sitting):
+		get_food()
+		move_cat()
+	elif energy > 0:
+		print("hey!")
+		energy = energy - delta
+		wander()
+		move_cat_wander()
+	if (stomach.size() <= 3):
 		hunger = delta + hunger
-	if(stomach.size() > 0):
+	if(stomach.size() > 0 and energy > 0):
 		if(stomach[0] <= 0):
 			go_to_bathroom()
 		else:
 			stomach[0] = stomach[0] - delta
-	if(hunger > hunger_limit and stomach.size() <= 3):
-		get_food()
-		move_cat()
-	elif energy > 0:
-		wander()
-		energy = energy - delta
-		move_cat_wander()
-	print(stomach)
+	
 
 func go_to_bathroom():
 	stomach.pop_front()
@@ -58,6 +69,19 @@ func move_cat():
 			path.remove(path.size()-1)
 	else:
 		arrive = true
+
+func sleep():
+	if not sleeping:
+		sleeping = true
+		randomize()
+		sleep_time = 0
+		sleep = rand_range(5, 10)
+		anim.play("sleep")
+	else:
+		if(sleep_time > sleep):
+			sleeping = false
+			energy = 50
+			
 
 func move_cat_wander():
 	if (path.size()>0):
@@ -137,7 +161,7 @@ func anim_changed(old_name, new_name):
 
 #animation signals they aren't really used yet. 
 func anim_finish():
-	print('ehllo')
+	pass
 
 func _ready():
 	cat = get_node("../cat")
