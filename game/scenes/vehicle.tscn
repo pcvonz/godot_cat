@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/cat.gd" type="Script" id=1]
 [ext_resource path="res://meshes/debug.msh" type="Mesh" id=2]
-[ext_resource path="res://scenes/cat_retop_3.scn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/cat.scn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -20,7 +20,7 @@ input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0.212076, 0.951571 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0.212076, 0.754632 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -55,7 +55,7 @@ target = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0.212076, 0.951571 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267872, 0.212076, 0.754632 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -141,6 +141,6 @@ material/0 = null
 
 [node name="Spatial" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( -0.0117476, 0, 0.999931, 0, 1, 0, -0.999931, 0, -0.0117476, 0, -0.294937, 0.995152 )
+transform/local = Transform( -0.0104575, 0, 0.999945, 0, 1, 0, -0.999945, 0, -0.0104575, 0, 0.0884417, 0.821826 )
 
 
