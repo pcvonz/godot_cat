@@ -4,8 +4,8 @@
 
 [sub_resource type="CapsuleShape" id=1]
 
-radius = 1.0
-height = 1.77681
+radius = 0.623975
+height = 2.2202
 
 [node name="Observer" type="RigidBody"]
 
@@ -14,7 +14,7 @@ input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 1, -4.37111e-08, -4.35611e-08, 4.37111e-08, 0.00343837, 0.999994, -4.35611e-08, -0.999994, 0.00343837, 0, 0.231924, 0 )
+shapes/0/transform = Transform( 1, -4.37111e-08, -4.35611e-08, 4.37111e-08, 0.00343837, 0.999994, -4.35611e-08, -0.999994, 0.00343837, 0, 0.231924, 0.300354 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -40,7 +40,7 @@ __meta__ = { "__editor_plugin_screen__":"3D" }
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, -4.37111e-08, -4.35611e-08, 4.37111e-08, 0.00343837, 0.999994, -4.35611e-08, -0.999994, 0.00343837, 0, 0.231924, 0 )
+transform/local = Transform( 1, -4.37111e-08, -4.35611e-08, 4.37111e-08, 0.00343837, 0.999994, -4.35611e-08, -0.999994, 0.00343837, 0, 0.231924, 0.300354 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -64,13 +64,5 @@ visible_layers = 1048575
 environment = null
 h_offset = 0.0
 v_offset = 0.0
-
-[node name="RayCast 2" type="RayCast" parent="Spatial/Camera"]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -100 )
-layer_mask = 1
-type_mask = 11
 
 

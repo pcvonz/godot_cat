@@ -1,9 +1,6 @@
 
 extends RigidBody
-signal door
 
-signal tty
-signal lamp
 # Member variables
 var r_pos = Vector2()
 var state
@@ -11,10 +8,6 @@ var velocity = Vector3(0,0,0)
 const STATE_MENU = 0
 const STATE_GRAB = 1
 var mov_speed = 5
-var ray
-var user_clicked = false
-var from
-var to
 #Variable set to seek cats towards you
 var calling = false	
 
@@ -32,13 +25,6 @@ func impulse(event, action):
 
 func _fixed_process(delta):
 	if(state != STATE_GRAB):
-		if get_node('Spatial/Camera/RayCast 2').is_colliding() and user_clicked == true:
-			var object = get_node('Spatial/Camera/RayCast 2').get_collider().get_parent()
-#			print(object.get_name())
-#			emit_signal(object.get_name(), object)
-#			ray.set_cast_to(to)
-#			get_node("../beep").set_global_transform(Transform(get_node("../beep").get_global_transform().basis, ray.get_collision_point()))		
-#			user_clicked = false
 		return
 
 	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
@@ -79,13 +65,7 @@ func _fixed_process(delta):
 func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		r_pos = event.relative_pos
-	if(event.is_action_pressed('interact')):
-		from = get_node("Spatial/Camera").project_ray_origin(event.pos)
-		to = from+get_node("Spatial/Camera").project_local_ray_normal(event.pos)*100
-		
-		user_clicked = true
 
-			
 	if(impulse(event, "ui_cancel")):
 		if(state == STATE_GRAB):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -99,7 +79,4 @@ func _input(event):
 func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
-	ray = get_node('Spatial/Camera/RayCast 2')
-	ray.add_exception(get_node("CollisionShape"))
-	ray.add_exception(get_node("."))
 	state = STATE_GRAB
