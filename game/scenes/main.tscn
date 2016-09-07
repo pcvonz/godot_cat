@@ -118,6 +118,7 @@ target = NodePath("../targ")
 
 [node name="RigidBody" type="RigidBody" parent="."]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0892, -34.4742 )
 input/ray_pickable = true
@@ -244,7 +245,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60962, -0.952393, -9.
 
 [node name="small lamp1" parent="." instance=ExtResource( 9 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95654, -0.952393, 8.98481 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95654, -0.952393, 6.01695 )
 
 [node name="tall_lamp" parent="." instance=ExtResource( 10 )]
 

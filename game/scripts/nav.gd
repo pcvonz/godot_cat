@@ -1,3 +1,4 @@
+#success is more try than cry
 
 extends Navigation
 
@@ -10,7 +11,7 @@ var path = []
 var begin = Vector3()
 var end = Vector3()
 var cat
-
+var obs
 
 
 var hunger_limit = 10
@@ -32,34 +33,71 @@ var sleeping = false
 var sleep_time = 0
 var sleep = 0
 
+var littering = false
+var litter_time = 0
+var litter = 0
+var bowels_full = false
+
 func _process(delta):
+	
 	time = time + delta
 	wait_time = wait_time + delta
 	sleep_time = sleep_time + delta
-	print("sleeping ", sleeping)
-	print("sitting ", sitting)
-	print("eating ", eating)
+	litter_time = litter_time + delta
+#	print("sleeping ", sleeping)
+#	print("sitting ", sitting)
+#	print("eating ", eating)
+	obs.get_node("litter").set_text(str("littering ", littering))
+	obs.get_node("sit").set_text(str("sitting ", sitting))
+	obs.get_node("food").set_text(str("eating ", eating))
+	obs.get_node("sleep").set_text(str("sleeping ", sleeping))
+	obs.get_node("energy").set_text(str("energy ", energy))
+	obs.get_node("path").set_text(str(path))
+	#Sleeps first,
+	#Litters second	
+	#Eats third
+	#Wanders and sits elsewise
 	if(energy < 0):
 		sleep()
+	elif bowels_full == true:
+		go_to_bathroom()
 	elif(hunger > hunger_limit and stomach.size() <= 3 and not sitting):
 		get_food()
 		move_cat()
-	elif energy > 0:
-		print("hey!")
+	else:
 		energy = energy - delta
 		wander()
 		move_cat_wander()
+	
 	if (stomach.size() <= 3):
 		hunger = delta + hunger
-	if(stomach.size() > 0 and energy > 0):
+	if(stomach.size() > 0):
 		if(stomach[0] <= 0):
-			go_to_bathroom()
+			bowels_full = true
 		else:
 			stomach[0] = stomach[0] - delta
-	
 
 func go_to_bathroom():
-	stomach.pop_front()
+	if end != get_closest_point(get_node("Room/litter_box").get_translation()):
+		arrive = false
+		end = get_closest_point(get_node("Room/litter_box").get_translation())
+		_update_path()
+	if(arrive == true):
+		arrive = false
+		litter()
+		
+func litter():
+	cat.get_node("Spatial/AnimationPlayer").get_animation("walk").set_loop(false)
+	if(not cat.get_node("Spatial/AnimationPlayer").is_playing() and not littering):
+		anim.play("litter")
+		randomize()
+		litter = rand_range(10, 20)
+		litter_time = 0
+		littering = true
+	elif(littering == true and litter < litter_time):
+		littering = false
+		bowels_full = false
+		_update_path()
 
 func move_cat():
 	if (path.size()>0):
@@ -123,6 +161,7 @@ func eat():
 	elif(eating == true):
 		if(not cat.get_node("Spatial/AnimationPlayer").is_playing()):
 			eating = false
+			wander()
 			_update_path()
 			hunger = 0
 			digest_food()
@@ -169,6 +208,7 @@ func _ready():
 	anim = cat.get_node("Spatial/AnimationPlayer")
 	anim.connect("animation_changed", self, "anim_changed")
 	anim.connect("finished", self, "anim_finish")
+	obs = get_node("../Observer/Spatial/Camera")
 	set_process_input(true)
 	set_process(true)
 	wander()
