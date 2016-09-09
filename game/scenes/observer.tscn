@@ -153,4 +153,18 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="stomach" type="Label" parent="Spatial/Camera"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 129.0
+margin/top = 3.0
+margin/right = 169.0
+margin/bottom = 17.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 

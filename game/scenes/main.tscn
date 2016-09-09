@@ -58,20 +58,20 @@ textures/shade_param_tc = 0
 
 ambient_light/enabled = true
 ambient_light/color = Color( 0.0351562, 0.0351562, 0.0351562, 1 )
-ambient_light/energy = 2.75
+ambient_light/energy = 0.89
 fxaa/enabled = true
 background/mode = 1
-background/color = Color( 0, 0, 0, 1 )
+background/color = Color( 0.449219, 0.0859833, 0.0859833, 1 )
 background/energy = 1.0
 background/scale = 1.0
 background/glow = 0.0
 background/canvas_max_layer = null
 glow/enabled = true
-glow/blur_passes = 4
-glow/blur_scale = 4.0
-glow/blur_strength = 1.03
-glow/blur_blend_mode = null
-glow/bloom = 0.54
+glow/blur_passes = 1
+glow/blur_scale = 0.01
+glow/blur_strength = 0.01
+glow/blur_blend_mode = 2
+glow/bloom = 0.15
 glow/bloom_treshold = 0.0
 dof_blur/enabled = true
 dof_blur/blur_passes = 1
@@ -79,14 +79,14 @@ dof_blur/begin = 100.0
 dof_blur/range = 10.0
 hdr/enabled = true
 hdr/tonemapper = 0
-hdr/exposure = 0.4
-hdr/white = 1.0
-hdr/glow_treshold = 0.95
-hdr/glow_scale = 0.2
-hdr/min_luminance = 0.4
+hdr/exposure = 0.05
+hdr/white = 0.09
+hdr/glow_treshold = 0.72
+hdr/glow_scale = 0.02
+hdr/min_luminance = 0.05
 hdr/max_luminance = 8.0
 hdr/exposure_adj_speed = 0.5
-fog/enabled = true
+fog/enabled = false
 fog/begin = 100.0
 fog/begin_color = Color( 0, 0, 0, 1 )
 fog/end_color = Color( 0, 0, 0, 1 )
@@ -95,7 +95,7 @@ fog/bg = true
 bcs/enabled = true
 bcs/brightness = 1.0
 bcs/contrast = 1.0
-bcs/saturation = 1.0
+bcs/saturation = 1.82
 srgb/enabled = true
 
 [node name="Spatial" type="Spatial"]
@@ -212,7 +212,6 @@ transform/local = Transform( 0.0635462, 0, -0.293193, 0, 0.3, 0, 0.293193, 0, 0.
 
 [node name="Navigation" type="Navigation" parent="."]
 
-editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 up_vector = Vector3( 0, 1, 0 )
 script/script = ExtResource( 7 )

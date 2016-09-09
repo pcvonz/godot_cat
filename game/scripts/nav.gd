@@ -2,9 +2,9 @@
 
 extends Navigation
 
-# member variables here, example:
-# var a=2
-# var b="textvar
+# The state machine consists of two actions. 
+# One part oves the path (move_*()
+# The other part is for updating the cat's path (go_to_bathroom, go_to_food(), etc).
 
 var anim
 var path = []
@@ -14,45 +14,43 @@ var cat
 var obs
 
 
-var hunger_limit = 10
+var hunger_limit = 40
 var hunger = 0
 var time = 0
 var arrive = true
 
-var stomach = []
-var energy = 5
+var stomach = [2, 2, 2]
+var energy = 100
 
 #Wait while wandering
 var wait = 0
-var wait_time = 0
+var elapsed_wait_time = 0
 
 var sitting = false
 var eating = false
 
 var sleeping = false
-var sleep_time = 0
+var elapsed_sleep_time = 0
 var sleep = 0
 
 var littering = false
-var litter_time = 0
+var elapsed_litter_time = 0
 var litter = 0
 var bowels_full = false
 
 func _process(delta):
 	
 	time = time + delta
-	wait_time = wait_time + delta
-	sleep_time = sleep_time + delta
-	litter_time = litter_time + delta
-#	print("sleeping ", sleeping)
-#	print("sitting ", sitting)
-#	print("eating ", eating)
+	elapsed_wait_time = elapsed_wait_time + delta
+	elapsed_sleep_time = elapsed_sleep_time + delta
+	elapsed_litter_time = elapsed_litter_time + delta
 	obs.get_node("litter").set_text(str("littering ", littering))
 	obs.get_node("sit").set_text(str("sitting ", sitting))
 	obs.get_node("food").set_text(str("eating ", eating))
 	obs.get_node("sleep").set_text(str("sleeping ", sleeping))
 	obs.get_node("energy").set_text(str("energy ", energy))
 	obs.get_node("path").set_text(str(path))
+	obs.get_node("stomach").set_text(str("stomach ", stomach))
 	#Sleeps first,
 	#Litters second	
 	#Eats third
@@ -61,14 +59,14 @@ func _process(delta):
 		sleep()
 	elif bowels_full == true:
 		go_to_bathroom()
-	elif(hunger > hunger_limit and stomach.size() <= 3 and not sitting):
+		move_cat()
+	elif(hunger > hunger_limit and stomach.size() < 3 and not sitting):
 		get_food()
 		move_cat()
 	else:
 		energy = energy - delta
 		wander()
 		move_cat_wander()
-	
 	if (stomach.size() <= 3):
 		hunger = delta + hunger
 	if(stomach.size() > 0):
@@ -92,11 +90,12 @@ func litter():
 		anim.play("litter")
 		randomize()
 		litter = rand_range(10, 20)
-		litter_time = 0
+		elapsed_litter_time = 0
 		littering = true
-	elif(littering == true and litter < litter_time):
+	elif(littering == true and litter < elapsed_litter_time):
 		littering = false
 		bowels_full = false
+		stomach.pop_front()
 		_update_path()
 
 func move_cat():
@@ -112,11 +111,11 @@ func sleep():
 	if not sleeping:
 		sleeping = true
 		randomize()
-		sleep_time = 0
+		elapsed_sleep_time = 0
 		sleep = rand_range(5, 10)
 		anim.play("sleep")
 	else:
-		if(sleep_time > sleep):
+		if(elapsed_sleep_time > sleep):
 			sleeping = false
 			energy = 50
 			
@@ -136,9 +135,9 @@ func sit():
 		anim.play("sit")
 		randomize()
 		wait = rand_range(10, 20)
-		wait_time = 0
+		elapsed_wait_time = 0
 		sitting = true
-	elif(sitting == true and wait < wait_time):
+	elif(sitting == true and wait < elapsed_wait_time):
 		sitting = false
 		_update_path()
 		
@@ -194,13 +193,30 @@ func _input(ev):
 #		print(get_node("Room/nav").get_global_transform().basis)
 		_update_path()
 
-#animation signals they aren't really used yet. 
+#animation signal they aren't really used yet. 
 func anim_changed(old_name, new_name):
 	print(old_name, new_name)
 
-#animation signals they aren't really used yet. 
+#animation signal they aren't really used yet. 
 func anim_finish():
 	pass
+	
+func save():
+	var savedict = {
+		filename = get_filename(),
+		parent = get_parent().get_path(),
+		time = time,
+		hunger = hunger,
+		stomach = stomach,
+		energy = energy,
+		elapsed_sleep_time = elapsed_sleep_time,
+		sleep = sleep,
+		elapsed_litter_time = elapsed_litter_time,
+		litter = litter,
+		bowels_full = bowels_full,
+		previous_time = OS.get_datetime()
+	}
+	return savedict
 
 func _ready():
 	cat = get_node("../cat")
@@ -212,5 +228,6 @@ func _ready():
 	set_process_input(true)
 	set_process(true)
 	wander()
+	add_to_group("Persist", true)
 	_update_path()
 
