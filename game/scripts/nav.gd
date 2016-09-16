@@ -52,13 +52,18 @@ var sleep_max = 60*60*1
 var updated = false
 var food_in_bowl = true
 var water_in_bowl = true
+var cat_loc
 
 func _process(delta):
 	if ((OS.get_unix_time() - previous_time) > 0) and not updated:
 		var time_since_last_played = OS.get_unix_time() - previous_time
 		update_stat(energy, time_since_last_played, sleep_max)
 		update_digestion(stomach, time_since_last_played)
-		print(food_in_bowl)
+		hunger = update_hunger(hunger, time_since_last_played)
+		thirst = update_thirst(thirst, time_since_last_played)
+		cat_loc = Vector3(cat_loc)
+		if(cat_loc):
+			cat.set_translation(cat_loc)
 		get_node("Room/spatial_bowl_food/food").set_flag(0, food_in_bowl)
 		get_node("Room/spatial_bowl_water/water").set_flag(0, water_in_bowl)
 		updated = true
@@ -75,6 +80,8 @@ func _process(delta):
 	obs.get_node("path").set_text(str(path))
 	obs.get_node("stomach").set_text(str("stomach ", stomach))
 	obs.get_node("bladder").set_text(str("bladder ", bladder))
+	obs.get_node("hunger").set_text(str("hunger ", hunger))
+	obs.get_node("thirst").set_text(str("thirst ", thirst))
 	#Sleeps first,
 	#Litters second	
 	#Eats third
@@ -110,6 +117,32 @@ func _process(delta):
 			stomach_full = true
 		else:
 			stomach[0] = stomach[0] - delta
+
+func update_hunger(hunger, time_since):
+	if(stomach.size() < 3):
+		if(hunger_limit*2 <= time_since):
+			if(get_node("Room/spatial_bowl_food/food").get_flag(0)):
+				get_node("Room/spatial_bowl_food/food").set_flag(0, false)
+				hunger = 0
+		elif(hunger_limit <= time_since):
+			get_node("Room/spatial_bowl_food/food").set_flag(0, false)
+			hunger = 50
+		else:
+			hunger = hunger - time_since
+	return hunger
+
+func update_thirst(hunger, time_since):
+	if(stomach.size() < 3):
+		if(thirst_limit*2 <= time_since):
+			if(get_node("Room/spatial_bowl_water/water").get_flag(0)):
+				get_node("Room/spatial_bowl_water/water").set_flag(0, false)
+				thirst = 0
+		elif(hunger_limit <= time_since):
+			get_node("Room/spatial_bowl_water/water").set_flag(0, false)
+			thirst = 50
+		else:
+			thirst = thirst - time_since
+	return thirst
 
 func update_digestion(digest, time_since):
 	for i in range(0, digest.size() -1):
@@ -150,7 +183,7 @@ func litter():
 	if(not cat.get_node("Spatial/AnimationPlayer").is_playing() and not littering):
 		anim.play("litter")
 		randomize()
-		litter = rand_range(1, 2)
+		litter = rand_range(400, 500)
 		elapsed_litter_time = 0
 		littering = true
 	elif(littering == true and litter < elapsed_litter_time):
@@ -173,7 +206,7 @@ func sleep():
 		sleeping = true
 		randomize()
 		elapsed_sleep_time = 0
-		sleep = rand_range(5, 10)
+		sleep = rand_range(4000, 5000)
 		anim.play("sleep")
 	else:
 		if(elapsed_sleep_time > sleep):
@@ -202,9 +235,10 @@ func sit():
 		sitting = false
 		_update_path()
 		
-
 func get_food():
 	if end != get_closest_point(get_node("Room/spatial_bowl_food").get_translation()):
+#For food and water, investigate whether or not I need to change the following line:
+#I believe it should use the get_flag method.
 		if(get_node("Room/spatial_bowl_food/food") != null):
 			arrive = false
 			end = get_closest_point(get_node("Room/spatial_bowl_food").get_translation())
@@ -258,11 +292,11 @@ func drink_water():
 
 func digest_food():
 	randomize()
-	stomach.append(rand_range(10,10))
+	stomach.append(rand_range(100,100))
 	
 func digest_water():
 	randomize()
-	bladder.append(rand_range(10,10))
+	bladder.append(rand_range(100,100))
 func wander():
 	var nav_points = get_node("Room/nav_empty").get_children()
 	randomize()
@@ -301,6 +335,7 @@ func save():
 		parent = get_parent().get_path(),
 		time = time,
 		hunger = hunger,
+		thirst = thirst,
 		stomach = stomach,
 		energy = energy,
 		elapsed_sleep_time = elapsed_sleep_time,
@@ -310,7 +345,8 @@ func save():
 		stomach_full = stomach_full,
 		food_in_bowl = get_node("Room/spatial_bowl_food/food").get_flag(0),
 		water_in_bowl = get_node("Room/spatial_bowl_water/water").get_flag(0),
-		previous_time = OS.get_unix_time()
+		previous_time = OS.get_unix_time(),
+		cat_loc = cat.get_translation()
 	}
 	return savedict
 

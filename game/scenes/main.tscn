@@ -242,6 +242,10 @@ geometry/baked_light_tex_id = 0
 editor/display_folded = true
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60962, -0.952393, -9.72601 )
 
+[node name="shape" parent="small lamp/lamp/col"]
+
+_update_shape_index = 0
+
 [node name="small lamp1" parent="." instance=ExtResource( 9 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95654, -0.952393, 6.01695 )
