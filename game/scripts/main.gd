@@ -6,8 +6,9 @@ extends Spatial
 export var boids = 0
 var open = false
 var obs
-
+var food
 func _ready():
+	food = get_node("Navigation/Room/spatial_bowl_food/food").duplicate()
 	for i in range(0, boids):
 		var temp = get_node("cat").duplicate()
 		add_child(temp)
@@ -18,6 +19,9 @@ func _ready():
 	get_node("small lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("small lamp")])
 	get_node("tall_lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("tall_lamp")])
 	get_node("small lamp1/lamp/col").connect("input_event", self, "toggle_light", [get_node("small lamp1")])
+	get_node("Navigation/Room/spatial_bowl_food/bowl_food/col").connect("input_event", self, "add_food", [get_node("Navigation/Room/spatial_bowl_food")])
+	get_node("Navigation/Room/spatial_bowl_water/bowl_water/col").connect("input_event", self, "add_water", [get_node("Navigation/Room/spatial_bowl_food")])
+	
 	load_game()
 
 func _notification(what):
@@ -75,6 +79,7 @@ func toggle_anim(camera, event, click_pos, click_normal, shape_idx, object):
 func toggle_light( camera, event, click_pos, click_normal, shape_idx, object):
 	var light = object.get_node("light")
 	var dist = object.get_translation()
+	
 	dist = dist.distance_to(obs.get_translation())
 	if(event.is_action_pressed("interact") and dist < 4):
 		print(event)
@@ -83,3 +88,19 @@ func toggle_light( camera, event, click_pos, click_normal, shape_idx, object):
 			light.set_enabled(false)
 		else:
 			light.set_enabled(true)
+
+func add_food(camera, event, click_pos, click_normal, shape_idx, object):
+	var dist = object.get_translation()
+	dist = dist.distance_to(object.get_translation())
+	if(event.is_action_pressed("interact") and dist < 4):
+		print(get_node("Navigation/Room/spatial_bowl_food/food"))
+		if get_node("Navigation/Room/spatial_bowl_food/food").get_flag(0) == false:
+			get_node("Navigation/Room/spatial_bowl_food/food").set_flag( 0, true )
+
+func add_water(camera, event, click_pos, click_normal, shape_idx, object):
+	var dist = object.get_translation()
+	dist = dist.distance_to(object.get_translation())
+	if(event.is_action_pressed("interact") and dist < 4):
+		print(get_node("Navigation/Room/spatial_bowl_water/water"))
+		if get_node("Navigation/Room/spatial_bowl_water/water").get_flag(0) == false:
+			get_node("Navigation/Room/spatial_bowl_water/water").set_flag( 0, true )

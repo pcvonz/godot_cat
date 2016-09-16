@@ -67,7 +67,6 @@ func _input(event):
 		r_pos = event.relative_pos
 	if(event.is_action_pressed("exit_game")):
 		get_parent().save_game()
-		print("hello")
 	if(impulse(event, "ui_cancel")):
 		if(state == STATE_GRAB):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

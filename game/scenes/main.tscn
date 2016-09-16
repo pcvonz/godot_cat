@@ -106,7 +106,7 @@ boids = 0
 
 [node name="cat" parent="." instance=ExtResource( 2 )]
 
-transform/local = Transform( 0.714449, 0, -0.699687, 0, 1, 0, 0.699687, 0, 0.714449, 1.29625, -0.470216, -5.9427 )
+transform/local = Transform( 0.714449, 0, -0.699687, 0, 1, 0, 0.699687, 0, 0.714449, -3.985, -0.470216, 7.25014 )
 mass = 1.0
 max_speed = 4.0
 mass = 1.0
@@ -192,7 +192,7 @@ geometry/baked_light_tex_id = 0
 
 [node name="Observer" parent="." instance=ExtResource( 3 )]
 
-transform/local = Transform( 0.270272, 0, -0.962784, 0, 1, 0, 0.962784, 0, 0.270272, -4.11159, 1.11156, -6.87768 )
+transform/local = Transform( -0.997073, 0, -0.0764577, 0, 1, 0, 0.0764577, 0, -0.997073, -4.11159, 1.11156, 6.08756 )
 
 [node name="target" parent="." instance=ExtResource( 4 )]
 
