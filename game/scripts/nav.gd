@@ -52,7 +52,10 @@ var sleep_max = 60*60*1
 var updated = false
 var food_in_bowl = true
 var water_in_bowl = true
-var cat_loc
+var pos_x
+var pos_y
+var pos_z
+var hud = true
 
 func _process(delta):
 	if ((OS.get_unix_time() - previous_time) > 0) and not updated:
@@ -61,8 +64,9 @@ func _process(delta):
 		update_digestion(stomach, time_since_last_played)
 		hunger = update_hunger(hunger, time_since_last_played)
 		thirst = update_thirst(thirst, time_since_last_played)
-		cat_loc = Vector3(cat_loc)
-		if(cat_loc):
+		
+		if(pos_z):
+			var cat_loc = Vector3(pos_x, pos_y, pos_z)
 			cat.set_translation(cat_loc)
 		get_node("Room/spatial_bowl_food/food").set_flag(0, food_in_bowl)
 		get_node("Room/spatial_bowl_water/water").set_flag(0, water_in_bowl)
@@ -72,18 +76,10 @@ func _process(delta):
 	elapsed_wait_time = elapsed_wait_time + delta
 	elapsed_sleep_time = elapsed_sleep_time + delta
 	elapsed_litter_time = elapsed_litter_time + delta
-	obs.get_node("litter").set_text(str("littering ", littering))
-	obs.get_node("sit").set_text(str("sitting ", sitting))
-	obs.get_node("food").set_text(str("eating ", eating))
-	obs.get_node("sleep").set_text(str("sleeping ", sleeping))
-	obs.get_node("energy").set_text(str("energy ", energy))
-	obs.get_node("path").set_text(str(path))
-	obs.get_node("stomach").set_text(str("stomach ", stomach))
-	obs.get_node("bladder").set_text(str("bladder ", bladder))
-	obs.get_node("hunger").set_text(str("hunger ", hunger))
-	obs.get_node("thirst").set_text(str("thirst ", thirst))
+	if(hud == true):
+		update_hud()
 	#Sleeps first,
-	#Litters second	
+	#Litters second
 	#Eats third
 	#Wanders and sits elsewise
 	if(energy < 0):
@@ -117,6 +113,18 @@ func _process(delta):
 			stomach_full = true
 		else:
 			stomach[0] = stomach[0] - delta
+
+func update_hud():
+	obs.get_node("litter").set_text(str("littering ", littering))
+	obs.get_node("sit").set_text(str("sitting ", sitting))
+	obs.get_node("food").set_text(str("eating ", eating))
+	obs.get_node("sleep").set_text(str("sleeping ", sleeping))
+	obs.get_node("energy").set_text(str("energy ", energy))
+	obs.get_node("path").set_text(str(path))
+	obs.get_node("stomach").set_text(str("stomach ", stomach))
+	obs.get_node("bladder").set_text(str("bladder ", bladder))
+	obs.get_node("hunger").set_text(str("hunger ", hunger))
+	obs.get_node("thirst").set_text(str("thirst ", thirst))
 
 func update_hunger(hunger, time_since):
 	if(stomach.size() < 3):
@@ -162,7 +170,7 @@ func update_stat(stat, time_since, stat_max):
 #			energy = energy - time_since
 #			time_since = 0
 	if time_since > stat_max*2:
-		if((time_since % stat_max*2) > 50):
+		if((int(time_since) % stat_max*2) > 50):
 			return 0
 		else:
 			return time_since % stat_max
@@ -175,7 +183,6 @@ func go_to_bathroom():
 		end = get_closest_point(get_node("Room/litter_box").get_translation())
 		_update_path()
 	if(arrive == true):
-		arrive = false
 		litter()
 		
 func litter():
@@ -183,18 +190,20 @@ func litter():
 	if(not cat.get_node("Spatial/AnimationPlayer").is_playing() and not littering):
 		anim.play("litter")
 		randomize()
-		litter = rand_range(400, 500)
+		litter = rand_range(0, 5)
 		elapsed_litter_time = 0
 		littering = true
 	elif(littering == true and litter < elapsed_litter_time):
 		littering = false
 		stomach_full = false
+		elapsed_litter_time = 0
+		arrive = false
 		stomach.pop_front()
 		_update_path()
 
 func move_cat():
 	if (path.size()>0):
-		if(cat.get_translation().distance_to(path[path.size()-1]) > 2):
+		if(cat.get_translation().distance_to(path[path.size()-1]) > .5):
 			cat.seek_point = path[path.size()-1]
 		else:
 			path.remove(path.size()-1)
@@ -297,6 +306,7 @@ func digest_food():
 func digest_water():
 	randomize()
 	bladder.append(rand_range(100,100))
+	
 func wander():
 	var nav_points = get_node("Room/nav_empty").get_children()
 	randomize()
@@ -309,17 +319,7 @@ func _update_path():
 	var p = get_simple_path(begin, end, true)
 	path=Array(p)
 	path.invert()
-	
-	
-func _input(ev):
-	if (ev.type==InputEvent.MOUSE_BUTTON and ev.button_index==BUTTON_LEFT and ev.pressed):
-#		var from = get_node("../Observer/Spatial/Camera").project_ray_origin(ev.pos)
-#		var to = from+get_node("../Observer/Spatial/Camera").project_ray_normal(ev.pos)*100
-#		end = get_closest_point_to_segment(from,to)
-#		get_node("targ").set_global_transform(Transform(get_node("targ").get_global_transform().basis, end))
-		wander()
-#		print(get_node("Room/nav").get_global_transform().basis)
-		_update_path()
+
 
 #animation signal they aren't really used yet. 
 func anim_changed(old_name, new_name):
@@ -346,7 +346,9 @@ func save():
 		food_in_bowl = get_node("Room/spatial_bowl_food/food").get_flag(0),
 		water_in_bowl = get_node("Room/spatial_bowl_water/water").get_flag(0),
 		previous_time = OS.get_unix_time(),
-		cat_loc = cat.get_translation()
+		pos_x = cat.get_translation().x,
+		pos_y = cat.get_translation().y,
+		pos_z = cat.get_translation().z
 	}
 	return savedict
 

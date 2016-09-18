@@ -28,6 +28,9 @@ var player
 
 var seek_point = Vector3()
 
+var prev_heading
+var curr_heading
+
 func _fixed_process(delta):
 	var SteeringForce = Vector3(0, 0, 0)
 	
@@ -64,8 +67,10 @@ func _fixed_process(delta):
 	set_linear_velocity(Vehicle.velocity)
 	
 	#Set the objects orientationt to the current heading
-	look_at(get_global_transform().origin + get_linear_velocity().normalized(), Vector3(0, 1, 0))
-
+	curr_heading = get_global_transform().origin + get_linear_velocity().normalized()	
+	if(prev_heading != curr_heading and curr_heading != null):
+		look_at(get_global_transform().origin + get_linear_velocity().normalized(), Vector3(0, 1, 0))
+	prev_heading = curr_heading
 func _enter_tree():
 	set_fixed_process(true)
 func _ready():

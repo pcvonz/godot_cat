@@ -13,8 +13,8 @@ func _ready():
 		var temp = get_node("cat").duplicate()
 		add_child(temp)
 	obs = get_node("Observer")
-	get_node("entry_door/door/col").connect("input_event", self, "toggle_anim", [get_node("entry_door")])
-	get_node("closet_door 2/door/col").connect("input_event", self, "toggle_anim", [get_node("closet_door 2")])
+	get_node("entry_door/door/col").connect("input_event", self, "open_door", [get_node("entry_door")])
+	get_node("closet_door 2/door/col").connect("input_event", self, "open_door", [get_node("closet_door 2")])
 	get_node("valentine/tty/col").connect("input_event", self, "toggle_anim", [get_node("valentine")])
 	get_node("small lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("small lamp")])
 	get_node("tall_lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("tall_lamp")])
@@ -66,6 +66,17 @@ func load_game():
 	savegame.close()
 	
 func toggle_anim(camera, event, click_pos, click_normal, shape_idx, object):
+	var anim = object.get_node("AnimationPlayer")
+	var dist = object.get_translation()
+	dist = dist.distance_to(obs.get_translation())
+	var anim = object.get_node("AnimationPlayer")
+	if(event.is_action_pressed("interact") and dist < 4):
+		if(anim.get_current_animation_pos() == 0):
+			anim.play("default")
+		else:
+			anim.play_backwards()
+
+func open_door(camera, event, click_pos, click_normal, shape_idx, object):
 	var anim = object.get_node("AnimationPlayer")
 	var dist = object.get_translation()
 	dist = dist.distance_to(obs.get_translation())
