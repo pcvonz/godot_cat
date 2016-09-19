@@ -13,8 +13,12 @@ func _ready():
 		var temp = get_node("cat").duplicate()
 		add_child(temp)
 	obs = get_node("Observer")
-	get_node("entry_door/door/col").connect("input_event", self, "open_door", [get_node("entry_door")])
-	get_node("closet_door 2/door/col").connect("input_event", self, "open_door", [get_node("closet_door 2")])
+	#entry door
+	get_node("entry_door/door_spatial/door/outer_handle/col").connect("input_event", self, "open_door", [get_node("entry_door/door_spatial/door/outer_handle")])
+	get_node("entry_door/door_spatial/door/inner_handle/col").connect("input_event", self, "open_door", [get_node("entry_door/door_spatial/door/inner_handle")])
+	#Closet door
+	get_node("closet_door/door_spatial/door/outer_handle/col").connect("input_event", self, "open_door", [get_node("closet_door/door_spatial/door/outer_handle")])
+	get_node("closet_door/door_spatial/door/inner_handle/col").connect("input_event", self, "open_door", [get_node("closet_door/door_spatial/door/outer_handle")])
 	get_node("valentine/tty/col").connect("input_event", self, "toggle_anim", [get_node("valentine")])
 	get_node("small lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("small lamp")])
 	get_node("tall_lamp/lamp/col").connect("input_event", self, "toggle_light", [get_node("tall_lamp")])
@@ -77,14 +81,19 @@ func toggle_anim(camera, event, click_pos, click_normal, shape_idx, object):
 			anim.play_backwards()
 
 func open_door(camera, event, click_pos, click_normal, shape_idx, object):
-	var anim = object.get_node("AnimationPlayer")
+	var anim = object.get_node("../../../AnimationPlayer")
 	var dist = object.get_translation()
 	dist = dist.distance_to(obs.get_translation())
-	var anim = object.get_node("AnimationPlayer")
-	if(event.is_action_pressed("interact") and dist < 4):
+	var anim = object.get_node("../../../AnimationPlayer")
+	print(dist)
+	if(event.is_action_pressed("interact")):
 		if(anim.get_current_animation_pos() == 0):
-			anim.play("default")
+			if(object.get_name() == "outer_handle"):
+				anim.play("open.2")
+			if(object.get_name() == "inner_handle"):
+				anim.play("open.1")
 		else:
+			print(anim.get_current_animation_pos())
 			anim.play_backwards()
 
 func toggle_light( camera, event, click_pos, click_normal, shape_idx, object):
