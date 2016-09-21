@@ -5,7 +5,7 @@ extends RigidBody
 # var a=2
 # var b="textvar"
 
-export(int, FLAGS, "fast", "normal", "slow") var decel = 1
+export(int, FLAGS, "fast", "normal", "slow") var decel = .01
 export var max_speed = 1.0
 export var mass = 50.0
 export var max_force = 1.0

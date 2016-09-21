@@ -15,7 +15,7 @@ func _ready():
 	obs = get_node("Observer")
 	#entry door
 	get_node("entry_door/door_spatial/door/outer_handle/col").connect("input_event", self, "open_door", [get_node("entry_door/door_spatial/door/outer_handle")])
-	get_node("entry_door/door_spatial/door/inner_handle/col").connect("input_event", self, "open_door", [get_node("entry_door/door_spatial/door/inner_handle")])
+	get_node("entry_door/door_spatial/door/inner_handle/col").connect("input_event", self, "open_door", [get_node("entry_door/door_spatial/door/outer_handle")])
 	#Closet door
 	get_node("closet_door/door_spatial/door/outer_handle/col").connect("input_event", self, "open_door", [get_node("closet_door/door_spatial/door/outer_handle")])
 	get_node("closet_door/door_spatial/door/inner_handle/col").connect("input_event", self, "open_door", [get_node("closet_door/door_spatial/door/outer_handle")])
@@ -85,7 +85,7 @@ func open_door(camera, event, click_pos, click_normal, shape_idx, object):
 	var dist = object.get_translation()
 	dist = dist.distance_to(obs.get_translation())
 	var anim = object.get_node("../../../AnimationPlayer")
-	print(dist)
+	print(anim.get_current_animation_pos())
 	if(event.is_action_pressed("interact")):
 		if(anim.get_current_animation_pos() == 0):
 			if(object.get_name() == "outer_handle"):
@@ -93,8 +93,7 @@ func open_door(camera, event, click_pos, click_normal, shape_idx, object):
 			if(object.get_name() == "inner_handle"):
 				anim.play("open.1")
 		else:
-			print(anim.get_current_animation_pos())
-			anim.play_backwards()
+			anim.play_backwards(anim.get_current_animation())
 
 func toggle_light( camera, event, click_pos, click_normal, shape_idx, object):
 	var light = object.get_node("light")

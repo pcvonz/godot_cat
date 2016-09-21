@@ -43,21 +43,4 @@ autoplay = ""
 
 [node name="door_spatial" parent="." instance=ExtResource( 1 )]
 
-[node name="door" parent="door_spatial"]
 
-transform/local = Transform( -0.173648, 0, 1.11671, 0, 1.23989, 0, -0.984808, 0, -0.196906, -0.0206074, 1.9076, -0.00308661 )
-
-[node name="shape" parent="door_spatial/door/inner_handle/col"]
-
-_update_shape_index = 0
-
-[node name="shape" parent="door_spatial/door/outer_handle/col"]
-
-_update_shape_index = 0
-
-[node name="shape" parent="door_spatial/door/col"]
-
-_update_shape_index = 0
-
-
-[editable path="door_spatial"]

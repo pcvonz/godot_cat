@@ -67,7 +67,7 @@ func _process(delta):
 		
 		if(pos_z):
 			var cat_loc = Vector3(pos_x, pos_y, pos_z)
-			cat.set_translation(cat_loc)
+#			cat.set_translation(cat_loc)
 		get_node("Room/spatial_bowl_food/food").set_flag(0, food_in_bowl)
 		get_node("Room/spatial_bowl_water/water").set_flag(0, water_in_bowl)
 		updated = true
@@ -203,7 +203,7 @@ func litter():
 
 func move_cat():
 	if (path.size()>0):
-		if(cat.get_translation().distance_to(path[path.size()-1]) > .5):
+		if(cat.get_translation().distance_to(path[path.size()-1]) > 2):
 			cat.seek_point = path[path.size()-1]
 		else:
 			path.remove(path.size()-1)

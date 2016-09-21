@@ -36,13 +36,13 @@ func _fixed_process(delta):
 	
 	#Direction orients the vector 
 	if (Input.is_action_pressed("move_forward")):
-		dir = direction(Vector3(0, 0, -mov_speed))
+		dir += direction(Vector3(0, 0, -mov_speed))
 	if (Input.is_action_pressed("move_backward")):
-		dir = direction(Vector3(0, 0, mov_speed))
+		dir += direction(Vector3(0, 0, mov_speed))
 	if (Input.is_action_pressed("move_left")):
-		dir = direction(Vector3(-mov_speed, 0, 0))
+		dir += direction(Vector3(-mov_speed, 0, 0))
 	if (Input.is_action_pressed("move_right")):
-		dir = direction(Vector3(mov_speed, 0, 0))
+		dir += direction(Vector3(mov_speed, 0, 0))
 	if(get_colliding_bodies().size() == 0):
 		set_linear_velocity(get_linear_velocity())
 	else:

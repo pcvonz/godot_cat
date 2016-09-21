@@ -1,0 +1,10 @@
+[gd_resource type="MaterialShaderGraph" load_steps=3 format=1]
+
+[ext_resource path="res://textures/drops.tex" type="Texture" id=1]
+[ext_resource path="res://textures/DSC_4271.tex" type="Texture" id=2]
+
+[resource]
+
+_code = { "default_tex":[ "Tex_2", ExtResource( 1 ), "Tex", ExtResource( 2 ) ], "fragment":"vec3 nd1sl5=vec3(UV,0);\nvec3 DIFFUSE_OUT=vec3(0,0,0);\nfloat ALPHA_OUT=0;\nuniform texture Tex;vec4 rt_read_tex2=tex(Tex,nd1sl5.xy);\nvec3 nd2sl0=rt_read_tex2.rgb;\nfloat nd2sl1=rt_read_tex2.a;\nuniform color Color=vec4(0.660156,0.04126,0.04126,1);\nvec3 nd4sl0=Color.rgb;\nfloat nd4sl1=Color.a;\nuniform texture Tex_2;vec4 rt_read_tex6=tex(Tex_2,nd1sl5.xy);\nvec3 nd6sl0=rt_read_tex6.rgb;\nfloat nd6sl1=rt_read_tex6.a;\nvec3 nd3sl0=mix(nd2sl0,nd4sl0,nd6sl1);\nvec3 nd5sl0def=vec3(0, 0, 0);\nvec3 nd5sl0=-(nd5sl0def);\nDIFFUSE_OUT=nd3sl0;\nDIFFUSE=DIFFUSE_OUT;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+_data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 376, 17 ), null, null, [ 0, 3, 0 ], 1, 0, Vector2( -225, -38 ), null, null, [  ], 2, 30, Vector2( 167, -150 ), "Tex", ExtResource( 2 ), [ 0, 1, 5, 2147483647, 0, null ], 3, 23, Vector2( 254, 152 ), null, null, [ 0, 2, 0, 1, 4, 0, 2, 6, 1, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, 0.5 ], 4, 28, Vector2( 112.4, 76.2 ), "Color", Color( 0.660156, 0.0412598, 0.0412598, 1 ), [  ], 5, 15, Vector2( 209.4, 292.2 ), 2, null, [ 2147483647, 0, null ], 6, 30, Vector2( -14, -45 ), "Tex_2", ExtResource( 1 ), [ 0, 1, 5, 2147483647, 0, null ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
+
