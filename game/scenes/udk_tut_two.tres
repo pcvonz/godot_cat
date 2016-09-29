@@ -1,0 +1,6 @@
+[gd_resource type="MaterialShader" format=1]
+
+[resource]
+
+_code = { "fragment":"uniform texture image1;\nuniform texture image2;\n\n//DIFFUSE_ALPHA = mix(tex(image1, UV), vec4(UV, 0, 1), tex(image2, UV).a);\n//MASKS\n//DIFFUSE = vec3(UV.x);\n\n//there are apparently a lot of uses to this thing.\n\n//EMISSION = vec3(UV.x) + vec3(-.5);\n//EMISSION = clamp((vec3(UV.x) + vec3(-.5)) * vec3(50000), 0, 1);\n//EMISSION = clamp((vec3(UV.x) + vec3(-.5)) * vec3(50000), 0, 1) + clamp((vec3(UV.y) + vec3(-.5)) * vec3(50000), 0, 1);\n\n//TIME and panner\n//EMISSION = vec3(sin(TIME))+ (vec3(UV.x) + vec3(-.5))+ vec3(UV.y);\n\n//Linear interpolate with mask!\n\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+

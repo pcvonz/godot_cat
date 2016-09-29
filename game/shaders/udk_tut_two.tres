@@ -1,0 +1,6 @@
+[gd_resource type="MaterialShader" format=1]
+
+[resource]
+
+_code = { "fragment":"vec4 invcamx = INV_CAMERA_MATRIX.x;\nvec4 invcamy = INV_CAMERA_MATRIX.y;\nvec4 invcamz = INV_CAMERA_MATRIX.z;\nvec4 invcamw = INV_CAMERA_MATRIX.w;\n\nmat3 invcam = mat3(invcamx.xyz, invcamy.xyz, invcamz.xyz);\n\nvec3 world_normal = NORMAL * invcam;\nvec3 world_pos = (VERTEX - invcamw.xyz) * invcam;\n\n", "fragment_ofs":0, "light":"//Lighting the top\n//The\nLIGHT = vec3(dot(NORMAL, vec3(0,.5,0)));", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+

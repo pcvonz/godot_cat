@@ -1,0 +1,7 @@
+# Creature project
+## How to run
+
+- Make sure you have [Git LFS](https://git-lfs.github.com/) installed, it is used to track all binary files. 
+- Clone the repos
+- Grab a copy of [Godot](https://godotengine.org/).
+- Run the game!
