@@ -66,9 +66,10 @@ func _process(delta):
 	if ((OS.get_unix_time() - previous_time) > 0) and not updated:
 		var time_since_last_played = OS.get_unix_time() - previous_time
 		update_stat(energy, time_since_last_played, sleep_max)
-		update_digestion(stomach, time_since_last_played)
-		hunger = update_thirst(hunger, time_since_last_played)
-		thirst = update_thirst(thirst, time_since_last_played)
+		stomach = update_digestion(stomach, time_since_last_played)
+		bladder = update_digestion(bladder, time_since_last_played)
+		hunger = update_hunger(hunger, time_since_last_played, food_in_bowl)
+		thirst = update_thirst(thirst, time_since_last_played, water_in_bowl)
 		if(sleeping):
 			elapsed_sleep_time += time_since_last_played
 		if(pos_z):
@@ -151,20 +152,38 @@ func update_hud():
 func die():
 	print("dying and dead")
 
-func update_thirst(thirst, time_since):
-	while(time_since > 0):
+func update_thirst(thirst, time_since, food_item):
+	while(time_since > 0 and thirst > 0 and water_in_bowl > 0):
 		if(time_since > thirst):
-			thirst = 0
-			time_since = 0
+			thirst = thirst_limit
+			water_in_bowl -= 1
 		else:
 			thirst = thirst - time_since
 			time_since = 0
+	thirst -= time_since
 	return thirst
+
+func update_hunger(hunger, time_since, food_item):
+	while(time_since > 0 and hunger > 0 and food_in_bowl > 0):
+		if(time_since > hunger):
+			hunger = hunger_limit
+			food_in_bowl -= 1
+		else:
+			hunger = hunger - time_since
+			time_since = 0
+	hunger -= time_since #If there was enough food to feed the cat, this wont do anything.
+	return hunger
 
 func update_digestion(digest, time_since):
 	for i in range(0, digest.size() -1):
-		if(digest[i] < time_since):
-			digest[i]
+		if(digest[0] < time_since):
+			time_since = time_since - digest[0]
+			digest.pop_front()
+		else:
+			digest[0] = digest[0] - time_since
+			break
+	return digest
+		
 
 func update_stat(stat, time_since, stat_max):
 	if time_since > stat_max*2:

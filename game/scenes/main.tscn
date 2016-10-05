@@ -13,7 +13,7 @@
 [ext_resource path="res://scenes/door.tscn" type="PackedScene" id=11]
 [ext_resource path="res://meshes/painting.msh" type="Mesh" id=12]
 [ext_resource path="res://textures/DSC_4271.tex" type="Texture" id=13]
-[ext_resource path="res://shaders/udk_tut_two.tres" type="Shader" id=14]
+[ext_resource path="res://shaders/udk_tut_one.tres" type="Shader" id=14]
 [ext_resource path="res://scenes/shader.tres" type="Shader" id=15]
 [ext_resource path="res://meshes/test_sphere.msh" type="Mesh" id=16]
 [ext_resource path="res://scenes/comfy_chair.scn" type="PackedScene" id=17]
@@ -105,7 +105,7 @@ srgb/enabled = true
 
 [sub_resource type="MaterialShaderGraph" id=4]
 
-_code = { "default_tex":[ "Tex", ExtResource( 13 ), "Tex_2", ExtResource( 13 ) ], "fragment":"vec3 nd1sl5=vec3(UV,0);\nvec3 DIFFUSE_OUT=vec3(0,0,0);\nfloat ALPHA_OUT=0;\nuniform texture Tex;vec4 rt_read_tex4=tex(Tex,nd1sl5.xy);\nvec3 nd4sl0=rt_read_tex4.rgb;\nfloat nd4sl1=rt_read_tex4.a;\nuniform vec3 Vec3=vec3(0,2,2);\nvec3 nd3sl0=Vec3;\nDIFFUSE_OUT=nd4sl0;\nDIFFUSE=DIFFUSE_OUT;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"vec3 SRC_UV=vec3(UV,0);\nvec3 nd1sl6=SRC_UV;\nuniform texture Tex_2;vec4 rt_read_tex3=tex(Tex_2,nd1sl6.xy);\nvec3 nd3sl0=rt_read_tex3.rgb;\nfloat nd3sl1=rt_read_tex3.a;\nvec3 nd2sl0=vec3(0.476562,0.173126,0.173126);\nfloat nd2sl1=1;\nCOLOR.rgb=nd3sl0;\n", "vertex_ofs":0 }
+_code = { "default_tex":[ "Tex_2", ExtResource( 13 ), "Tex", ExtResource( 13 ) ], "fragment":"vec3 nd1sl5=vec3(UV,0);\nvec3 DIFFUSE_OUT=vec3(0,0,0);\nfloat ALPHA_OUT=0;\nuniform texture Tex;vec4 rt_read_tex4=tex(Tex,nd1sl5.xy);\nvec3 nd4sl0=rt_read_tex4.rgb;\nfloat nd4sl1=rt_read_tex4.a;\nuniform vec3 Vec3=vec3(0,2,2);\nvec3 nd3sl0=Vec3;\nDIFFUSE_OUT=nd4sl0;\nDIFFUSE=DIFFUSE_OUT;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"vec3 SRC_UV=vec3(UV,0);\nvec3 nd1sl6=SRC_UV;\nuniform texture Tex_2;vec4 rt_read_tex3=tex(Tex_2,nd1sl6.xy);\nvec3 nd3sl0=rt_read_tex3.rgb;\nfloat nd3sl1=rt_read_tex3.a;\nvec3 nd2sl0=vec3(0.476562,0.173126,0.173126);\nfloat nd2sl1=1;\nCOLOR.rgb=nd3sl0;\n", "vertex_ofs":0 }
 _data = { "shaders":[ [ 0, 33, Vector2( 534, -8 ), null, null, [ 6, 3, 0 ], 1, 0, Vector2( 76, 51 ), null, null, [  ], 2, 3, Vector2( 227, 78 ), Color( 0.476562, 0.173126, 0.173126, 1 ), null, [  ], 3, 30, Vector2( 323, 66 ), "Tex_2", ExtResource( 13 ), [ 0, 1, 6, 2147483647, 0, null ] ], [ 0, 33, Vector2( 608, -15 ), null, null, [ 0, 4, 0 ], 1, 0, Vector2( 103, 84 ), null, null, [  ], 3, 27, Vector2( 277, -23 ), "Vec3", Vector3( 0, 2, 2 ), [  ], 4, 30, Vector2( 299, 136 ), "Tex", ExtResource( 13 ), [ 0, 1, 5, 2147483647, 0, null ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
 
 [sub_resource type="ShaderMaterial" id=5]
@@ -350,7 +350,7 @@ material/0 = SubResource( 5 )
 [node name="TestCube" type="TestCube" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.00332353, -0.999994, 0, 0.950812, 0.00316007, 0.309752, -0.30975, -0.00102947, 0.950817, -0.82696, 0.95951, 3.45228 )
+transform/local = Transform( 0.00332353, -0.999994, 0, 0.950812, 0.00316007, 0.309752, -0.30975, -0.00102947, 0.950817, 10.4878, 0.95951, 3.45228 )
 layers = 1
 geometry/visible = true
 geometry/material_override = SubResource( 6 )
@@ -369,7 +369,7 @@ geometry/baked_light_tex_id = 0
 [node name="TestCube1" type="TestCube" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.00332353, -0.999994, 0, 0.950812, 0.00316007, 0.309752, -0.30975, -0.00102947, 0.950817, -4.63642, 0.95951, 3.45228 )
+transform/local = Transform( 0.00332353, -0.999994, 0, 0.950812, 0.00316007, 0.309752, -0.30975, -0.00102947, 0.950817, 13.4845, 0.95951, 3.45228 )
 layers = 1
 geometry/visible = true
 geometry/material_override = SubResource( 7 )
@@ -388,7 +388,7 @@ geometry/baked_light_tex_id = 0
 [node name="MeshInstance 2" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.891799, 1.00054, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3108, 1.00054, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null

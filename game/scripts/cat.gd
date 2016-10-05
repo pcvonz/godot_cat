@@ -16,8 +16,8 @@ export var wander_jitter = 1.0
 export(int, FLAGS, "Seek", "flee", "Pursuit", "Evade", "Wander", "Wall Avoid", "Object Avoid", "seek_point") var flock_type
 export(NodePath) var target
 
-var Vehicle = load("scripts/Vehicle.gd")
-var Steering = load("/scripts/steering.gd")
+var Vehicle = load("res://scripts/Vehicle.gd")
+var Steering = load("res://scripts/steering.gd")
 
 #Setting up rays
 var RayLeft
